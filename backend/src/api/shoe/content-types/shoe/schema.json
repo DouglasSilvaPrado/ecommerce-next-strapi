@@ -1,0 +1,54 @@
+{
+  "kind": "collectionType",
+  "collectionName": "shoes",
+  "info": {
+    "singularName": "shoe",
+    "pluralName": "shoes",
+    "displayName": "Shoe"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "price": {
+      "required": true,
+      "type": "decimal"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "gender": {
+      "type": "string"
+    },
+    "size": {
+      "type": "integer"
+    },
+    "badge": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "colors": {
+      "type": "json"
+    },
+    "quantity": {
+      "type": "integer"
+    },
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
+    }
+  }
+}
