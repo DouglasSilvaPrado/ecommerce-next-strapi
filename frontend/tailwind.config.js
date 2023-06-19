@@ -18,7 +18,8 @@ module.exports = {
         faWhite: '#FAFAFA',
         gray: '#E7E7E3',
         grayMain: '#70706E',
-        darkGray: '#232321'
+        darkGray: '#232321',
+        grayInput: '#79767C'
       }
     },
 
