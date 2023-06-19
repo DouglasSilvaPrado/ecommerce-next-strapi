@@ -30,7 +30,7 @@ export const Navbar = () => {
   const [toggleMenu, setToggleMenu] = useState(false)
 
   return (
-    <nav className={`bg-faWhite  h-14 ${toggleMenu ? 'rounded-t-xl' : 'rounded-xl'} md:rounded-xl m-auto w-11/12 mt-8 mb-6 md:h-24`}>
+    <nav className={`bg-faWhite h-14 ${toggleMenu ? 'rounded-t-xl' : 'rounded-xl'} relative md:rounded-xl px-4 md:px-16 mt-8 mb-6 md:h-24`}>
       <div className='flex items-center h-full justify-between mx-4'>
 
         <div className='hidden md:inline-block md:w-[18.75rem]'>
@@ -61,7 +61,7 @@ export const Navbar = () => {
         </div>
       </div>
       {toggleMenu &&
-        <div className='bg-faWhite absolute w-11/12 rounded-b-xl py-2 px-4 md:hidden'>
+        <div className='bg-faWhite absolute w-full rounded-b-xl py-2 px-4 left-0 md:hidden'>
           <ul className={`text-darkGray text-sm font-semibold divide-y-2 ${rubik.className}`}>
             <li>New Drops 🔥</li>
             <li><Dropdown items={items} /> </li>
