@@ -66,7 +66,7 @@ export default function Home() {
           <PrimaryButton text='SHOP NEW DROPS' className="px-4 py-3 h-10" />
         </div>
 
-        <div className='flex flex-wrap gap-4'>
+        <div className='grid grid-cols-2 gap-4 md:grid-cols-4'>
           {[1,2,3,4].map(() => (
             <ProductCard shoe={mockShoe} />
           ))}

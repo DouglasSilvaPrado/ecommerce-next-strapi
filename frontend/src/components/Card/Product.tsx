@@ -10,16 +10,16 @@ interface ProductCardProps {
 
 export const ProductCard = ({ shoe }: ProductCardProps) => {
   return (
-    <div className='w-[171px]'>
+    <div>
       <div className='bg-faWhite rounded-2xl p-2 h-[180px]'>
-        <div className='relative'>
-          <Image className="object-cover" src={shoe.attributes.image.data[0].attributes.url} alt={shoe.attributes.name} width={155} height={164} />
+        <div className='relative h-full'>
+          <Image className="object-cover" src={shoe.attributes.image.data[0].attributes.url} alt={shoe.attributes.name} fill />
           <BadgeCard text={shoe.attributes.badge} color="faWhite" bg="blue"/>
         </div>
       </div>
       <div className='mt-4'>
         <p className='font-semibold text-base'>{shoe.attributes.name}</p>
-        <SecondaryButton text='VIEW PRODUCT' price={shoe.attributes.price} className='py-3 px-5 font-medium text-xs mt-2' />
+        <SecondaryButton text='VIEW PRODUCT' price={shoe.attributes.price} className='py-3 px-5 font-medium text-xs mt-2 w-full' />
       </div>
     </div>
   )
