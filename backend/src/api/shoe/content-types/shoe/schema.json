@@ -4,7 +4,8 @@
   "info": {
     "singularName": "shoe",
     "pluralName": "shoes",
-    "displayName": "Shoe"
+    "displayName": "Shoe",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -13,42 +14,54 @@
   "attributes": {
     "name": {
       "type": "string",
-      "required": true
+      "required": true,
+      "pluginOptions": {}
     },
     "price": {
       "required": true,
-      "type": "decimal"
+      "type": "decimal",
+      "pluginOptions": {}
     },
     "description": {
-      "type": "richtext"
+      "type": "richtext",
+      "pluginOptions": {}
     },
-    "gender": {
-      "type": "string"
+    "tag": {
+      "type": "string",
+      "pluginOptions": {}
     },
-    "size": {
-      "type": "integer"
-    },
-    "badge": {
-      "type": "string"
-    },
-    "type": {
-      "type": "string"
-    },
-    "colors": {
-      "type": "json"
+    "category": {
+      "type": "string",
+      "pluginOptions": {}
     },
     "quantity": {
-      "type": "integer"
+      "type": "integer",
+      "pluginOptions": {}
     },
     "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ],
+      "pluginOptions": {}
+    },
+    "gallery": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
       ],
-      "type": "media",
-      "multiple": true
+      "pluginOptions": {}
+    },
+    "sku": {
+      "type": "string",
+      "pluginOptions": {}
     }
   }
 }
