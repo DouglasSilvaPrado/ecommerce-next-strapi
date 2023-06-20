@@ -1,11 +1,32 @@
+'use client'
+
 import { AiOutlineArrowRight } from 'react-icons/ai'
 import { Inter, Rubik } from 'next/font/google'
 import Link from 'next/link'
+import { useSession, signIn } from 'next-auth/react'
+import GoogleButton from 'react-google-button'
+import { useRouter } from 'next/navigation'
 
 const rubik = Rubik({ subsets: ['latin'] })
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Login() {
+export default function Signin() {
+  const { push } = useRouter()
+  const { data: session, status } = useSession()
+
+  if (status === 'authenticated') {
+    push('/')
+  }
+
+  const handleLogin = (event: any) => {
+    event.preventDefault()
+
+    const email = event.target.email.value
+    const password = event.target.password.value
+
+    signIn('credentials', { identifier: email, password, redirect: false })
+  }
+
   return (
     <main>
       <div className='text-darkGray'>
@@ -13,15 +34,17 @@ export default function Login() {
         <Link href='/Register' className='font-semibold underline cursor-pointer'>Forgot your password?</Link>
       </div>
       <div className='mt-6'>
-        <form className={`${inter.className}`}>
+        <form className={`${inter.className}`} onSubmit={handleLogin}>
           <input
             className='rounded-lg border border-darkGray text-grayInput w-full px-4 py-3 my-3'
             type='email'
+            name="email"
             placeholder='Email'
           />
           <input
             className='rounded-lg border border-darkGray text-grayInput w-full px-4 py-3 my-3'
             type='password'
+            name="password"
             placeholder='Password'
           />
           <div className='flex my-3'>
@@ -37,6 +60,7 @@ export default function Login() {
           </button>
         </form>
       </div>
+      <GoogleButton className='mt-4' onClick={() => signIn("google")} />
     </main>
   )
 }

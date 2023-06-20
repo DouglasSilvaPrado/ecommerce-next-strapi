@@ -8,6 +8,7 @@ import { FaUser } from 'react-icons/fa'
 import { BsSearch } from 'react-icons/bs'
 import { Rubik } from 'next/font/google'
 import Dropdown from '../Dropdown/dropdown'
+import { SignInButton } from '../SignInButton/SignInButton'
 
 const rubik = Rubik({ subsets: ['latin'] })
 
@@ -51,9 +52,8 @@ export const Navbar = () => {
           <button className="mr-2">
             <BsSearch className='w-4 h-4 md:6 md:h-6' />
           </button>
-          <button className="mx-2">
-            <FaUser className='w-4 h-4 md:6 md:h-6' />
-          </button>
+          
+          <SignInButton />
 
           <div className='w-5 h-5 md:w-7 md:h-7 bg-yellow rounded-full flex items-center justify-center '>
             <span className='font-semibold text-darkGray text-sm'>0</span>
