@@ -33,9 +33,9 @@ export const Navbar = () => {
     <nav className={`bg-faWhite h-14 ${toggleMenu ? 'rounded-t-xl' : 'rounded-xl'} relative md:rounded-xl px-4 md:px-16 mt-8 mb-6 md:h-24`}>
       <div className='flex items-center h-full justify-between mx-4'>
 
-        <div className='hidden md:inline-block md:w-[18.75rem]'>
-          <ul className={`flex text-darkGray font-semibold text-base gap-2 ${rubik.className}`}>
-            <li>New Drops🔥</li>
+        <div className='hidden md:inline-block md:w-1/3'>
+          <ul className={`flex text-darkGray font-semibold md:text-xs lg:text-base gap-2 ${rubik.className}`}>
+            <li>New 🔥</li>
             <li><Dropdown items={items} /> </li>
             <li><Dropdown items={items2} /></li>
           </ul>
@@ -45,9 +45,9 @@ export const Navbar = () => {
           <BiMenu className='w-5 h-5' />
         </button>
 
-        <Image src="/Logo.svg" alt="logo" width={80}  height={20} className="md:w-[128px] md:h-[32px]"/>
+        <Image src="/Logo.svg" alt="logo" width={80}  height={20} className="md:w-[100px] lg:w-[138px] md:h-[32px]"/>
 
-        <div className='flex justify-end md:w-[18.75rem]'>
+        <div className='flex justify-end md:w-1/3'>
           <button className="mr-2">
             <BsSearch className='w-4 h-4 md:6 md:h-6' />
           </button>
