@@ -52,7 +52,7 @@ export default function Page({ params: { id } }: { params: { id: number } }) {
   }, []);
 
   return (
-    <main className={`${rubik.className}`}>
+    <div className={`${rubik.className}`}>
       <div className='md:flex'>
 
         <div className='md:w-8/12 mr-4'>
@@ -107,6 +107,6 @@ export default function Page({ params: { id } }: { params: { id: number } }) {
           </div>
         </div>
       </div>
-    </main>
+    </div>
   )
 }

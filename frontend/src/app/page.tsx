@@ -2,7 +2,6 @@
 
 import { PrimaryButton } from '@/components/Buttons/Primary'
 import { ProductCard } from '@/components/Card/Product'
-import { Shoe } from '@/store/ShoeSlice'
 import { useAppStore } from '@/store/store'
 import { Rubik, Open_Sans } from 'next/font/google'
 import Image from 'next/image'
@@ -23,7 +22,7 @@ export default function Home() {
   
 
   return (
-    <main className={`${rubik.className} bg-gray `}>
+    <div className={`${rubik.className} bg-gray `}>
       <section className='text-darkGray'>
         <div>
           <h1 className='font-bold text-6xl'>DO IT <span className='text-blue'>RIGHT</span></h1>
@@ -58,6 +57,6 @@ export default function Home() {
         </div>
 
       </section>
-    </main>
+    </div>
   )
 }
