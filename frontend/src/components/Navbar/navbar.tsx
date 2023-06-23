@@ -7,6 +7,7 @@ import { FaUser } from 'react-icons/fa';
 import { BsSearch } from 'react-icons/bs';
 import { Rubik } from 'next/font/google';
 import Dropdown from '../Dropdown/dropdown';
+import { useAppStore } from '@/store/store';
 
 const rubik = Rubik({ subsets: ['latin'] });
 
@@ -29,8 +30,13 @@ export const Navbar = () => {
 
   const [toggleMenu, setToggleMenu] = useState(false);
 
+  const {  cart } = useAppStore()
+
   return (
-    <nav className={`fixed z-50 bg-faWhite h-14 top-0 left-0 right-0 m-4 ${toggleMenu ? 'rounded-t-xl' : 'rounded-xl'} md:rounded-xl md:px-16 md:h-24`}>
+    <nav 
+      className={`fixed z-50 h-14 top-0 left-0 right-0 m-4 ${toggleMenu ? 'rounded-t-xl' : 'rounded-xl'} md:rounded-xl md:mx-16 md:h-24`}
+      style={{backgroundColor: 'rgba(250, 250, 250, 0.8)'}}
+      >
       <div className='h-full'>
         <div className='flex items-center h-full justify-between mx-4'>
           <div className='hidden md:inline-block md:w-1/3'>
@@ -56,7 +62,7 @@ export const Navbar = () => {
             </button>
 
             <div className='w-5 h-5 md:w-7 md:h-7 bg-yellow rounded-full flex items-center justify-center'>
-              <span className='font-semibold text-darkGray text-sm'>0</span>
+              <span className='font-semibold text-darkGray text-sm'> {cart.length} </span>
             </div>
           </div>
         </div>
