@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "colors",
+  "info": {
+    "singularName": "color",
+    "pluralName": "colors",
+    "displayName": "color"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "cor": {
+      "type": "string"
+    },
+    "shoes": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::shoe.shoe",
+      "inversedBy": "colors"
+    }
+  }
+}

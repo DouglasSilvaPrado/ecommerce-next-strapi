@@ -11,7 +11,7 @@ interface ProductCardProps {
 
 export const ProductCard = ({ shoe }: ProductCardProps) => {
   return (
-    <div>
+    <div className='mx-1'>
       <div className='bg-faWhite rounded-2xl p-2 h-[180px]'>
         <div className='relative h-full'>
           <Image 

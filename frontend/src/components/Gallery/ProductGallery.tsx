@@ -1,11 +1,6 @@
 import React from 'react'
-import ImageGallery from 'react-image-gallery';
-
-
-export type GalleryItems = {
-  original: string
-  thumbnail: string
-}
+import { GalleryItems } from './ProductGalleryCarrousel'
+import Image from 'next/image'
 
 type ProductGalleryProps = {
   images: GalleryItems[]
@@ -13,9 +8,10 @@ type ProductGalleryProps = {
 
 export const ProductGallery = ({ images } : ProductGalleryProps) => {
   return (
-    <ImageGallery 
-      items={images}
-      showFullscreenButton={false}
-    />
+    <div className='grid grid-cols-2 gap-4'>
+      {images.map((image) => (
+        <Image key={image.thumbnail} src={image.original} alt="" width={429} height={510} className='' />
+      ))}
+    </div>
   )
 }

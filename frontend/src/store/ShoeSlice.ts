@@ -1,11 +1,26 @@
 import { StateCreator } from 'zustand';
 
 export type ImageType = {
-    id: number,
-    attributes: {
-      name: string,
-      url: string
-    }
+  id: number,
+  attributes: {
+    name: string,
+    url: string
+  }
+}
+
+export type ColorType = {
+  id: number,
+  attributes: {
+    name: string,
+    cor: string
+  }
+}
+
+export type SizeType = {
+  id: number,
+  attributes: {
+    size: number,
+  }
 }
 
 export interface Shoe {
@@ -23,6 +38,12 @@ export interface Shoe {
     },
     gallery: {
       data: ImageType[]
+    },
+    colors: {
+      data: ColorType[]
+    },
+    sizes: {
+      data: SizeType[]
     }
   }
 }
