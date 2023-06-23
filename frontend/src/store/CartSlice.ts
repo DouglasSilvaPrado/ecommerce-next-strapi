@@ -1,10 +1,25 @@
 import { StateCreator } from 'zustand';
-import { Shoe } from './ShoeSlice';
+import { ColorType, SizeType } from './ShoeSlice';
 
+export type Product = {
+  id: number,
+  attributes: {
+    name: string,
+    price: number,
+    description: string,
+    quantity?: number,
+    tag: string,
+    category: string,
+    sku: string,
+    image: string,
+    color: ColorType
+    size: SizeType
+  }
+}
 
 export interface CartSlice {
-  cart: Shoe[]
-  addToCart: (shoe: Shoe) => void
+  cart: Product[]
+  addToCart: (shoe: Product) => void
   removeToCart: (shoeId: number) => void
   updateCart:(shoeId: number, action: 'increase' | 'decrease') => void
 }
@@ -14,7 +29,12 @@ export const createCartSlice:StateCreator<CartSlice> = (set, get) => ({
   cart: [],
   addToCart:(shoe) => {
     const cart = get().cart
-    const findShoe = cart.find((item) => item.id === shoe.id)
+    const findShoe = cart.find((item) => 
+      item.id === shoe.id &&
+      item.attributes.color === shoe.attributes.color &&
+      item.attributes.size === shoe.attributes.size
+    )
+    console.log("sho")
 
     if(findShoe){
       findShoe.attributes.quantity! += 1
