@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { GalleryItems, ProductGalleryCarrousel } from '@/components/Gallery/ProductGalleryCarrousel'
 import { fetchShoeByID } from '@/services/shoes'
-import { ImageType, Shoe } from '@/store/ShoeSlice'
+import { ColorType, ImageType, Shoe, SizeType } from '@/store/ShoeSlice'
 import { Open_Sans, Rubik } from 'next/font/google'
 import ColorSelection from '@/components/ColorSelection/ColorSelection'
 import { SizeSelection } from '@/components/SizeSelection/SizeSelection'
@@ -11,14 +11,33 @@ import { SecondaryButton } from '@/components/Buttons/Secondary'
 import { MdOutlineFavoriteBorder } from 'react-icons/md'
 import { ProductGallery } from '@/components/Gallery/ProductGallery'
 import { GridCarousel } from '@/components/GridCarousel/GridCarousel'
+import { Product } from '@/store/CartSlice'
+import { useAppStore } from '@/store/store'
+
+
 
 const rubik = Rubik({ subsets: ['latin'] })
 const openSans = Open_Sans({ subsets: ['latin'] })
 
 
 export default function Page({ params: { id } }: { params: { id: number } }) {
+ 
+  const { addToCart, cart } = useAppStore()
+
   const [shoe, setShoe] = useState<Shoe>()
   const [galleryImages, setGalleryImages] = useState<GalleryItems[]>([])
+  const [selectedColor, setSelectedColor] = useState<ColorType | null>(null);
+  const [sizeSelection, setSizeSelection] = useState<SizeType | null>(null)
+
+
+  const handleColor = (color: ColorType) => {
+    setSelectedColor(color)
+  }
+
+  const handleSize = (size: SizeType) => {
+    setSizeSelection(size)
+  }
+
 
   const createGalleryItem = useCallback(
     (image: ImageType) => {
@@ -47,6 +66,36 @@ export default function Page({ params: { id } }: { params: { id: number } }) {
     });
   }, [id, createGalleryItem, galleryImages]);
 
+  const handleAddToCart = () => {
+    const colorError = !selectedColor ? 'select a color' : '';
+    const sizeError = !sizeSelection ? 'select a size' : '';
+
+    if (colorError || sizeError) {
+      alert(colorError || sizeError);
+      return;
+    }
+
+    if(shoe){
+      const product: Product = {
+        id: shoe.id,
+        attributes: {
+          name: shoe.attributes.name,
+          price: shoe.attributes.price,
+          description: shoe.attributes.description,
+          tag: shoe.attributes.tag,
+          category: shoe.attributes.category,
+          sku: shoe.attributes.sku,
+          image: shoe.attributes.image.data.attributes.url,
+          color: selectedColor!,
+          size:  sizeSelection!,
+        }
+      }
+      addToCart(product)
+    }
+    
+    console.log('cart', cart)
+  }
+
   useEffect(() => {
     fetchShoe()
   }, []);
@@ -73,17 +122,17 @@ export default function Page({ params: { id } }: { params: { id: number } }) {
           <div className='my-6'>
             <p className='font-semibold'>Color</p>
             <div className='flex'>
-              <ColorSelection colors={shoe?.attributes.colors.data}/>
+              <ColorSelection colors={shoe?.attributes.colors.data} selectedColor={selectedColor} handleColor={handleColor}/>
             </div>
           </div>
           <div className="my-6">
             <p className='font-semibold'>Size</p>
             <div className='flex flex-wrap'>
-              <SizeSelection sizes={shoe?.attributes.sizes.data}/>
+              <SizeSelection sizes={shoe?.attributes.sizes.data} sizeSelection={sizeSelection} handleSize={handleSize}/>
             </div>
           </div>
           <div className='my-6 flex j'>
-            <SecondaryButton text='ADD TO CART' className='py-4 mr-2 w-full' />
+            <SecondaryButton text='ADD TO CART' className='py-4 mr-2 w-full' onClick={handleAddToCart}/>
             <SecondaryButton text={<MdOutlineFavoriteBorder />} className='px-4' />
           </div>
           <div className='my-6'>
