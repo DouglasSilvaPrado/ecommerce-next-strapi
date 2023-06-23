@@ -1,17 +1,12 @@
 import { ColorType } from '@/store/ShoeSlice';
-import { useState } from 'react';
-
 
 interface ColorSelectionProps {
   colors?: ColorType[];
+  selectedColor: ColorType | null;
+  handleColor: (color: ColorType) => void
 }
 
-const ColorSelection: React.FC<ColorSelectionProps> = ({ colors }) => {
-  const [selectedColor, setSelectedColor] = useState<ColorType | null>(null);
-
-  const handleColorClick = (color: ColorType) => {
-    setSelectedColor(color);
-  };
+const ColorSelection: React.FC<ColorSelectionProps> = ({ colors, selectedColor, handleColor }) => {
 
   return (
     <div className='flex '>
@@ -20,7 +15,7 @@ const ColorSelection: React.FC<ColorSelectionProps> = ({ colors }) => {
           key={color.id}
           className={`w-6 h-6 rounded-full mr-2 ${selectedColor === color ? 'border-2 border-black' : ''}`}
           style={{ backgroundColor: color.attributes.cor, cursor: 'pointer' }}
-          onClick={() => handleColorClick(color)}
+          onClick={() => handleColor(color)}
         />
       ))}
     </div>
