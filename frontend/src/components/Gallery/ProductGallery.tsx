@@ -1,6 +1,6 @@
 import React from 'react'
-import { GalleryItems } from './ProductGalleryCarrousel'
 import Image from 'next/image'
+import { GalleryItems } from '@/@types/GalleryItems'
 
 type ProductGalleryProps = {
   images: GalleryItems[]

@@ -1,9 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
-import { GalleryItems, ProductGalleryCarrousel } from '@/components/Gallery/ProductGalleryCarrousel'
 import { fetchShoeByID } from '@/services/shoes'
-import { ColorType, ImageType, Shoe, SizeType } from '@/store/ShoeSlice'
 import { Open_Sans, Rubik } from 'next/font/google'
 import ColorSelection from '@/components/ColorSelection/ColorSelection'
 import { SizeSelection } from '@/components/SizeSelection/SizeSelection'
@@ -11,17 +9,20 @@ import { SecondaryButton } from '@/components/Buttons/Secondary'
 import { MdOutlineFavoriteBorder } from 'react-icons/md'
 import { ProductGallery } from '@/components/Gallery/ProductGallery'
 import { GridCarousel } from '@/components/GridCarousel/GridCarousel'
-import { Product } from '@/store/CartSlice'
 import { useAppStore } from '@/store/store'
-
+import { GalleryItems } from '@/@types/GalleryItems'
+import { ColorType } from '@/@types/ColorType'
+import { SizeType } from '@/@types/SizeType'
+import { ImageType } from '@/@types/ImageType'
+import { Shoe } from '@/@types/Shoe'
+import { ProductGalleryCarrousel } from '@/components/Gallery/ProductGalleryCarrousel'
+import { Product } from '@/@types/Product'
 
 
 const rubik = Rubik({ subsets: ['latin'] })
 const openSans = Open_Sans({ subsets: ['latin'] })
 
-
 export default function Page({ params: { id } }: { params: { id: number } }) {
- 
   const { addToCart, cart } = useAppStore()
 
   const [shoe, setShoe] = useState<Shoe>()
@@ -37,7 +38,6 @@ export default function Page({ params: { id } }: { params: { id: number } }) {
   const handleSize = (size: SizeType) => {
     setSizeSelection(size)
   }
-
 
   const createGalleryItem = useCallback(
     (image: ImageType) => {

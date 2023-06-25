@@ -1,11 +1,6 @@
+import { GalleryItems } from '@/@types/GalleryItems';
 import React from 'react'
 import ImageGallery from 'react-image-gallery';
-
-
-export type GalleryItems = {
-  original: string
-  thumbnail: string
-}
 
 type ProductGalleryCarrouselProps = {
   images: GalleryItems[]
