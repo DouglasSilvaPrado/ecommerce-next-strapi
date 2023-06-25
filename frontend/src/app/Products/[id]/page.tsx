@@ -1,7 +1,5 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
-import { fetchShoeByID } from '@/services/shoes'
 import { Open_Sans, Rubik } from 'next/font/google'
 import ColorSelection from '@/components/ColorSelection/ColorSelection'
 import { SizeSelection } from '@/components/SizeSelection/SizeSelection'
@@ -9,96 +7,16 @@ import { SecondaryButton } from '@/components/Buttons/Secondary'
 import { MdOutlineFavoriteBorder } from 'react-icons/md'
 import { ProductGallery } from '@/components/Gallery/ProductGallery'
 import { GridCarousel } from '@/components/GridCarousel/GridCarousel'
-import { useAppStore } from '@/store/store'
-import { GalleryItems } from '@/@types/GalleryItems'
-import { ColorType } from '@/@types/ColorType'
-import { SizeType } from '@/@types/SizeType'
-import { ImageType } from '@/@types/ImageType'
-import { Shoe } from '@/@types/Shoe'
 import { ProductGalleryCarrousel } from '@/components/Gallery/ProductGalleryCarrousel'
-import { Product } from '@/@types/Product'
+import { useProduct } from '@/hooks/useProduct'
 
 
 const rubik = Rubik({ subsets: ['latin'] })
 const openSans = Open_Sans({ subsets: ['latin'] })
 
 export default function Page({ params: { id } }: { params: { id: number } }) {
-  const { addToCart, cart } = useAppStore()
-
-  const [shoe, setShoe] = useState<Shoe>()
-  const [galleryImages, setGalleryImages] = useState<GalleryItems[]>([])
-  const [selectedColor, setSelectedColor] = useState<ColorType | null>(null);
-  const [sizeSelection, setSizeSelection] = useState<SizeType | null>(null)
-
-
-  const handleColor = (color: ColorType) => {
-    setSelectedColor(color)
-  }
-
-  const handleSize = (size: SizeType) => {
-    setSizeSelection(size)
-  }
-
-  const createGalleryItem = useCallback(
-    (image: ImageType) => {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}${image.attributes.url}`;
-      return {
-        original: url,
-        thumbnail: url,
-      };
-    },
-    []
-  );
-
-  const fetchShoe = useCallback(async () => {
-    const res = await fetchShoeByID(id)
-    setShoe(res)
-
-    res?.attributes.gallery.data.forEach((image: ImageType) => {
-      const newItem = createGalleryItem(image);
-      const itemExists = galleryImages.some(
-        (item) => item.original === newItem.original && item.thumbnail === newItem.thumbnail
-      );
-
-      if (!itemExists) {
-        setGalleryImages((prev) => [...prev, newItem]);
-      }
-    });
-  }, [id, createGalleryItem, galleryImages]);
-
-  const handleAddToCart = () => {
-    const colorError = !selectedColor ? 'select a color' : '';
-    const sizeError = !sizeSelection ? 'select a size' : '';
-
-    if (colorError || sizeError) {
-      alert(colorError || sizeError);
-      return;
-    }
-
-    if(shoe){
-      const product: Product = {
-        id: shoe.id,
-        attributes: {
-          name: shoe.attributes.name,
-          price: shoe.attributes.price,
-          description: shoe.attributes.description,
-          tag: shoe.attributes.tag,
-          category: shoe.attributes.category,
-          sku: shoe.attributes.sku,
-          image: shoe.attributes.image.data.attributes.url,
-          color: selectedColor!,
-          size:  sizeSelection!,
-        }
-      }
-      addToCart(product)
-    }
-    
-    console.log('cart', cart)
-  }
-
-  useEffect(() => {
-    fetchShoe()
-  }, []);
+ 
+  const { galleryImages, shoe, selectedColor, sizeSelection, handleColor, handleSize, handleAddToCart} = useProduct(id)
 
   return (
     <div className={`${rubik.className}`}>
