@@ -2,8 +2,8 @@ import Image from 'next/image'
 import React from 'react'
 import { BadgeCard } from '../Badge/BadgeCard'
 import { SecondaryButton } from '../Buttons/Secondary'
-import { Shoe } from '@/store/ShoeSlice'
 import Link from 'next/link'
+import { Shoe } from '@/@types/Shoe'
 
 interface ProductCardProps {
   shoe: Shoe
