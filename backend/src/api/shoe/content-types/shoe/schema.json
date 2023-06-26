@@ -62,6 +62,18 @@
     "sku": {
       "type": "string",
       "pluginOptions": {}
+    },
+    "colors": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::color.color",
+      "mappedBy": "shoes"
+    },
+    "sizes": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::size.size",
+      "inversedBy": "shoes"
     }
   }
 }

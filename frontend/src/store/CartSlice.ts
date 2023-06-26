@@ -1,46 +1,67 @@
+import { Product } from '@/@types/Product';
+import { Shoe } from '@/@types/Shoe';
 import { StateCreator } from 'zustand';
-import { Shoe } from './ShoeSlice';
-
 
 export interface CartSlice {
-  cart: Shoe[]
-  addToCart: (shoe: Shoe) => void
-  removeToCart: (shoeId: number) => void
-  updateCart:(shoeId: number, action: 'increase' | 'decrease') => void
+  cart: Product[],
+  favorites: Shoe[],
+  addToCart: (product: Product) => void
+  addToFavorites: (product: Shoe) => void
+  removeToCart: (productId: number) => void
+  updateCart:(productId: number, action: 'increase' | 'decrease') => void
 }
 
 
 export const createCartSlice:StateCreator<CartSlice> = (set, get) => ({
   cart: [],
-  addToCart:(shoe) => {
+  favorites: [],
+  addToCart:(product) => {
     const cart = get().cart
-    const findShoe = cart.find((item) => item.id === shoe.id)
+    const findProduct = cart.find((item) => 
+      item.id === product.id &&
+      item.attributes.color === product.attributes.color &&
+      item.attributes.size === product.attributes.size
+    )
 
-    if(findShoe){
-      findShoe.attributes.quantity! += 1
+    if(findProduct){
+      findProduct.attributes.quantity! += 1
     } else {
-      cart.push({ ...shoe, attributes:{...shoe.attributes, quantity: 1}});
+      cart.push({ ...product, attributes:{...product.attributes, quantity: 1}});
     }
     set({ cart })
   },
 
-  removeToCart:(shoeId) => {
-    set({ cart: get().cart.filter((item) => item.id !== shoeId) })
+  removeToCart:(productId) => {
+    set({ cart: get().cart.filter((item) => item.id !== productId) })
   },
 
-  updateCart: (shoeId , action) => {
+  updateCart: (productId , action) => {
     const cart = get().cart
-    const findShoe = cart.find((item) => item.id === shoeId)
-    if(findShoe){
+    const findProduct = cart.find((item) => item.id === productId)
+    if(findProduct){
       if(action === 'decrease'){
-        findShoe.attributes.quantity = findShoe.attributes.quantity! > 1
-          ? findShoe.attributes.quantity! - 1
-          : findShoe.attributes.quantity!
+        findProduct.attributes.quantity = findProduct.attributes.quantity! > 1
+          ? findProduct.attributes.quantity! - 1
+          : findProduct.attributes.quantity!
       }else {
-        findShoe.attributes.quantity! += 1
+        findProduct.attributes.quantity! += 1
       }
 
     }
     set ({cart})
+  },
+
+  addToFavorites: (product: Shoe) => {
+    const favorites = get().favorites;
+    const findProductIndex = favorites.findIndex((favorite) => favorite.id === product.id);
+  
+    if (findProductIndex !== -1) {
+      favorites.splice(findProductIndex, 1);
+    } else {
+      favorites.push({ ...product });
+    }
+  
+    set({ favorites });
   }
+  
 })

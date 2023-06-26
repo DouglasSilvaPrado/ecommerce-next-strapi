@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sizes",
+  "info": {
+    "singularName": "size",
+    "pluralName": "sizes",
+    "displayName": "Size"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "size": {
+      "type": "integer",
+      "max": 45,
+      "min": 38
+    },
+    "shoes": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::shoe.shoe",
+      "mappedBy": "sizes"
+    }
+  }
+}

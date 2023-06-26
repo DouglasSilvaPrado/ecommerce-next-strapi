@@ -1,44 +1,28 @@
-import { BadgeCard } from '@/components/Badge/BadgeCard'
+'use client'
+
 import { PrimaryButton } from '@/components/Buttons/Primary'
-import { SecondaryButton } from '@/components/Buttons/Secondary'
 import { ProductCard } from '@/components/Card/Product'
-import { Shoe } from '@/store/ShoeSlice'
+import { useAppStore } from '@/store/store'
 import { Rubik, Open_Sans } from 'next/font/google'
 import Image from 'next/image'
+import { useEffect } from 'react'
 
 const rubik = Rubik({ subsets: ['latin'] })
 const open_sans = Open_Sans({ subsets: ['latin'] })
+
+
 export default function Home() {
 
-  const mockShoe: Shoe = {
-    id: 1,
-    attributes: {
-      name: 'ADIDAS 4DFWD X PARLEY RUNNING SHOES',
-      price: 125,
-      description: '',
-      gender: '',
-      size: 39,
-      badge: 'New',
-      type: 'Casual',
-      colors: Object,
-      quantity: 1,
-      image: {
-        data: 
-        [
-          {
-            id: 1,
-            attributes: {
-              name: 'ADIDAS 4DFWD X PARLEY RUNNING SHOES',
-              url: '/Rectangle 5.png'
-            }
-          }
-        ]
-      }
-    }
-  }
+  const { fetchShoes, shoes } = useAppStore()
+
+  useEffect(() => {
+    fetchShoes()
+  },[])
+
+  
 
   return (
-    <main className={`${rubik.className} bg-gray `}>
+    <div className={`${rubik.className} bg-gray `}>
       <section className='text-darkGray'>
         <div>
           <h1 className='font-bold text-6xl'>DO IT <span className='text-blue'>RIGHT</span></h1>
@@ -66,14 +50,13 @@ export default function Home() {
           <PrimaryButton text='SHOP NEW DROPS' className="px-4 py-3 h-10" />
         </div>
 
-        <div className='grid grid-cols-2 gap-4 md:grid-cols-4'>
-          {[1,2,3,4].map(() => (
-            <ProductCard shoe={mockShoe} />
+        <div className='grid grid-cols-2 gap-4 md:grid-cols-4 my-6'>
+          {shoes.slice(0, 4).map((shoe) => (
+            <ProductCard shoe={shoe} key={shoe.id} />
           ))}
-
         </div>
 
       </section>
-    </main>
+    </div>
   )
 }

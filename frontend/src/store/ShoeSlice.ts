@@ -1,32 +1,5 @@
+import { Shoe } from '@/@types/Shoe';
 import { StateCreator } from 'zustand';
-
-export type ImageType = {
-    id: number,
-    attributes: {
-      name: string,
-      url: string
-    }
-}
-
-export interface Shoe {
-  id: number,
-  attributes: {
-    name: string,
-    price: number,
-    description: string,
-    gender: string,
-    size: number,
-    badge: string,
-    type: string,
-    colors: Object,
-    quantity?: number,
-    image: {
-      data: ImageType[]
-    }
-  }
-}
-
-
 
 export interface ShoeSlice {
   shoes: Shoe[]
@@ -37,8 +10,8 @@ export interface ShoeSlice {
 export const createShoeSlice:StateCreator<ShoeSlice> = (set) => ({
   shoes: [],
   fetchShoes: async () => {
-    const res = await fetch('http://localhost:1337/api/shoes?populate=image')
-    const resJson = await res.json()
-    set({shoes: resJson.data})
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/shoes?populate=*`)
+    const {data: resJson} = await res.json()
+    set({shoes: resJson})
   }
 })
