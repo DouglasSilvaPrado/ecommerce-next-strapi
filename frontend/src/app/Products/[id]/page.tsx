@@ -15,13 +15,12 @@ const rubik = Rubik({ subsets: ['latin'] })
 const openSans = Open_Sans({ subsets: ['latin'] })
 
 export default function Page({ params: { id } }: { params: { id: number } }) {
- 
-  const { galleryImages, shoe, selectedColor, sizeSelection, handleColor, handleSize, handleAddToCart} = useProduct(id)
+
+  const { galleryImages, shoe, selectedColor, sizeSelection, handleColor, handleSize, handleAddToCart, handleAddToFavorite, isFavorite} = useProduct(id)
 
   return (
     <div className={`${rubik.className}`}>
       <div className='md:flex'>
-
         <div className='md:w-8/12 mr-4'>
           <div className='md:hidden'>
             <ProductGalleryCarrousel images={galleryImages} />
@@ -30,7 +29,6 @@ export default function Page({ params: { id } }: { params: { id: number } }) {
             <ProductGallery images={galleryImages} />
           </div>
         </div>
-        
 
         <div className='md:w-4/12'>
           <div className='my-6 md:mt-0'>
@@ -51,7 +49,7 @@ export default function Page({ params: { id } }: { params: { id: number } }) {
           </div>
           <div className='my-6 flex j'>
             <SecondaryButton text='ADD TO CART' className='py-4 mr-2 w-full' onClick={handleAddToCart}/>
-            <SecondaryButton text={<MdOutlineFavoriteBorder />} className='px-4' />
+            <SecondaryButton text={<MdOutlineFavoriteBorder />} className={`px-4 ${isFavorite(shoe) ? 'bg-yellow' : 'bg-darkGray'}`} onClick={handleAddToFavorite}/>
           </div>
           <div className='my-6'>
             <p className='font-semibold mb-2'>ABOUT THE PRODUCT</p>

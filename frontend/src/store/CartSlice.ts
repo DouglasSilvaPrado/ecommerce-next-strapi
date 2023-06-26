@@ -1,9 +1,12 @@
 import { Product } from '@/@types/Product';
+import { Shoe } from '@/@types/Shoe';
 import { StateCreator } from 'zustand';
 
 export interface CartSlice {
-  cart: Product[]
+  cart: Product[],
+  favorites: Shoe[],
   addToCart: (product: Product) => void
+  addToFavorites: (product: Shoe) => void
   removeToCart: (productId: number) => void
   updateCart:(productId: number, action: 'increase' | 'decrease') => void
 }
@@ -11,6 +14,7 @@ export interface CartSlice {
 
 export const createCartSlice:StateCreator<CartSlice> = (set, get) => ({
   cart: [],
+  favorites: [],
   addToCart:(product) => {
     const cart = get().cart
     const findProduct = cart.find((item) => 
@@ -18,7 +22,6 @@ export const createCartSlice:StateCreator<CartSlice> = (set, get) => ({
       item.attributes.color === product.attributes.color &&
       item.attributes.size === product.attributes.size
     )
-    console.log("sho")
 
     if(findProduct){
       findProduct.attributes.quantity! += 1
@@ -46,5 +49,19 @@ export const createCartSlice:StateCreator<CartSlice> = (set, get) => ({
 
     }
     set ({cart})
+  },
+
+  addToFavorites: (product: Shoe) => {
+    const favorites = get().favorites;
+    const findProductIndex = favorites.findIndex((favorite) => favorite.id === product.id);
+  
+    if (findProductIndex !== -1) {
+      favorites.splice(findProductIndex, 1);
+    } else {
+      favorites.push({ ...product });
+    }
+  
+    set({ favorites });
   }
+  
 })
