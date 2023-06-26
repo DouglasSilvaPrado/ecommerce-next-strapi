@@ -1,6 +1,8 @@
 import './globals.css'
 import { Open_Sans } from 'next/font/google'
 import { Navbar } from '@/components/Navbar/navbar'
+import 'react-toastify/dist/ReactToastify.css';
+import { Toast } from '@/components/Toast/Toast';
 
 const openSans = Open_Sans({ subsets: ['latin'] })
 
@@ -18,7 +20,9 @@ export default function RootLayout({
     <html lang="pt-br">
       <body className={`${openSans.className} bg-gray px-4 md:px-16`}>
           <Navbar />
+          <Toast />
         <main className="mt-24 md:mt-36">{children}</main> 
+        
       </body>
     </html>
   )

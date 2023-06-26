@@ -7,9 +7,10 @@ import { SizeType } from '@/@types/SizeType'
 import { fetchShoeByID } from '@/services/shoes'
 import { useAppStore } from '@/store/store'
 import  { useCallback, useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 
 export const useProduct = ( id: number ) => {
-  const { addToCart, cart } = useAppStore()
+  const { addToCart, addToFavorites, favorites } = useAppStore()
 
   const [shoe, setShoe] = useState<Shoe>()
   const [galleryImages, setGalleryImages] = useState<GalleryItems[]>([])
@@ -52,12 +53,12 @@ export const useProduct = ( id: number ) => {
     });
   }, [id, createGalleryItem, galleryImages]);
 
-  const handleAddToCart = () => {
+  const isProductValid = () => {
     const colorError = !selectedColor ? 'select a color' : '';
     const sizeError = !sizeSelection ? 'select a size' : '';
 
     if (colorError || sizeError) {
-      alert(colorError || sizeError);
+      toast.info(colorError || sizeError);
       return;
     }
 
@@ -76,13 +77,34 @@ export const useProduct = ( id: number ) => {
           size:  sizeSelection!,
         }
       }
+      return product
+    }
+}
+
+  const handleAddToCart = () => {
+    const product = isProductValid()
+    if(product) {
       addToCart(product)
+      toast.success(`${product.attributes.name} adicionado ao carrinho`);
     }
   }
+
+  const handleAddToFavorite = () => {
+    if(shoe) {
+      addToFavorites(shoe)
+    }
+  }
+
+  const isFavorite = (shoe: Shoe | undefined) => {
+    if (shoe) {
+      return favorites.some((favorite) => favorite.id === shoe.id);
+    }
+  };
+  
 
   useEffect(() => {
     fetchShoe()
   }, []);
 
-  return  { galleryImages, shoe, selectedColor, sizeSelection, handleColor, handleSize, handleAddToCart}
+  return  { galleryImages, shoe, selectedColor, sizeSelection, handleColor, handleSize, handleAddToCart, handleAddToFavorite, isFavorite}
 }
