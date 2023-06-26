@@ -8,6 +8,7 @@ import { BsSearch } from 'react-icons/bs';
 import { Rubik } from 'next/font/google';
 import Dropdown from '../Dropdown/dropdown';
 import { useAppStore } from '@/store/store';
+import Link from 'next/link';
 
 const rubik = Rubik({ subsets: ['latin'] });
 
@@ -41,7 +42,7 @@ export const Navbar = () => {
         <div className='flex items-center h-full justify-between mx-4'>
           <div className='hidden md:inline-block md:w-1/3'>
             <ul className={`flex text-darkGray font-semibold md:text-xs lg:text-base gap-2 ${rubik.className}`}>
-              <li>New 🔥</li>
+              <li className='cursor-pointer'><Link href="/Listing">New 🔥</Link></li>
               <li><Dropdown items={items} /></li>
               <li><Dropdown items={items2} /></li>
             </ul>
@@ -70,7 +71,7 @@ export const Navbar = () => {
         {toggleMenu && (
           <div className='bg-faWhite absolute w-full rounded-b-xl py-2 px-4 left-0 md:hidden'>
             <ul className={`text-darkGray text-sm font-semibold divide-y-2 ${rubik.className}`}>
-              <li>New Drops 🔥</li>
+              <li className='cursor-pointer'><Link href="/Listing">New Drops 🔥</Link></li>
               <li><Dropdown items={items} /></li>
               <li><Dropdown items={items2} /></li>
             </ul>
