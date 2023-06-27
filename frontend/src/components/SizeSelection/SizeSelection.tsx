@@ -1,7 +1,5 @@
-import { SizeType } from '@/store/ShoeSlice';
+import { SizeType } from '@/@types/SizeType';
 import React from 'react'
-import { useState } from 'react';
-
 
 interface SizeSelectionProps {
   sizeSelection: SizeType | null
