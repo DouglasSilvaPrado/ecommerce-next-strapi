@@ -8,3 +8,14 @@ export const fetchShoeByID = async (id: number) => {
   }
   
 }
+
+export const getShoes = async (url: string) => {
+  try {
+    const res = await fetch(url)
+    const {data: resJson} = await res.json()
+    return resJson
+  } catch (error) {
+    console.error(error)
+  }
+  
+}
