@@ -13,7 +13,7 @@ export const ListProduct = () => {
 
  const fetchShoes = async() => {
   const queryParams = selectedFilters.map((filter) => 
-    `filters[${filter.category}s][${filter.category}][$in]=${filter.name}`)
+    `filters[${filter.category}][${filter.subCategory}][$in]=${filter.name}`)
     .join('&')
   const url = `${process.env.NEXT_PUBLIC_API_URL}/api/shoes?populate=*&${queryParams}`
   try {

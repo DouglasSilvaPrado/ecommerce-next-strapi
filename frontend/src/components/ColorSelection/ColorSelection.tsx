@@ -1,4 +1,4 @@
-import { ColorType } from '@/store/ShoeSlice';
+import { ColorType } from '@/@types/ColorType';
 
 interface ColorSelectionProps {
   colors?: ColorType[];
