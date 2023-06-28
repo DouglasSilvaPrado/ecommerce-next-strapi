@@ -1,3 +1,4 @@
+import { CategoryType } from './CategoryType'
 import { ColorType } from './ColorType'
 import { ImageType } from './ImageType'
 import { SizeType } from './SizeType'
@@ -10,8 +11,10 @@ export interface Shoe {
     description: string,
     quantity?: number,
     tag: string,
-    category: string,
     sku: string,
+    categories: {
+      data: CategoryType[]
+    },
     image:{
       data: ImageType
     },
