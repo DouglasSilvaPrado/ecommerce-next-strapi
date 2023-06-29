@@ -3,13 +3,9 @@ import { fetchSizes } from '@/services/sizeService';
 import { useAppStore } from '@/store/store';
 import { useEffect, useState } from 'react'
 
-interface UseSizeProps {
-  sizeSelected: SizeType | null
-  setSizeSelected: (size: SizeType | null) => void
-}
 
-export const useSize = ({ sizeSelected, setSizeSelected }: UseSizeProps) => {
-  const { removeFilter } = useAppStore();
+export const useSize = () => {
+  const { removeFilter, sizeSelected, setSizeSelected } = useAppStore();
   const [sizes, setSizes] = useState<SizeType[]>([]);
 
   const handleSizes = async () => {
@@ -34,5 +30,5 @@ export const useSize = ({ sizeSelected, setSizeSelected }: UseSizeProps) => {
     handleSizes();
   }, []);
 
-  return { sizes, handleSizeSelected }
+  return { sizes, handleSizeSelected, sizeSelected }
 }

@@ -1,15 +1,8 @@
-
-import { SizeType } from '@/@types/SizeType';
 import { useSize } from '../../hooks/useSize';
 
-interface SizeFilterProps {
-  sizeSelected: SizeType | null
-  setSizeSelected: (size: SizeType | null) => void
-}
+export const SizeFilter = ( ) => {
 
-export const SizeFilter = ( {sizeSelected, setSizeSelected}: SizeFilterProps) => {
-
-  const { sizes, handleSizeSelected } = useSize({ sizeSelected, setSizeSelected })
+  const { sizes, handleSizeSelected, sizeSelected } = useSize()
 
   return (
     <div className="m-4">
