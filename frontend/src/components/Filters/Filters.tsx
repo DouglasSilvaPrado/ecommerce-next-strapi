@@ -5,13 +5,16 @@ import { fetchSizes } from '@/services/sizeService'
 import React, { useEffect, useState } from 'react'
 import { IoMdClose } from 'react-icons/io'
 import { IoFilterSharp } from 'react-icons/io5'
-import { Rubik } from 'next/font/google'
+import { Open_Sans, Rubik } from 'next/font/google'
 import { useAppStore } from '@/store/store'
 import { ColorType } from '@/@types/ColorType'
 import { fetchColors } from '@/services/colorService'
+import { fetchCategories } from '@/services/categoriesService'
+import { CategoryType } from '@/@types/CategoryType'
 
 
 const rubik = Rubik({ subsets: ['latin'] })
+const open_sans = Open_Sans({ subsets: ['latin'] })
 
 
 export const Filters = ( ) => {
@@ -20,8 +23,11 @@ export const Filters = ( ) => {
   const [showFilter, setShowFilter] = useState(false)
   const [sizes, setSizes] = useState<SizeType[]>([])
   const [colors, setColors] = useState<ColorType[]>([])
+  const [categories, setCategories] = useState<CategoryType[]>([])
   const [sizeSelected, setSizeSelected] = useState<SizeType | null>(null)
   const [colorSelected, setColorSelected] = useState<ColorType | null>(null)
+  const [categorySelected, setCategorySelected] = useState<CategoryType | null>(null)
+
 
   const handleShowFilters = () => {
     setShowFilter(!showFilter)
@@ -31,6 +37,7 @@ export const Filters = ( ) => {
     const sizeData = await fetchSizes()
     setSizes(sizeData)
   }
+
   const handleSizeSelected = (size: SizeType) => {
     if(size.attributes.size === sizeSelected?.attributes.size){
       setSizeSelected(null)
@@ -62,6 +69,24 @@ export const Filters = ( ) => {
     setColorSelected(color)
   }
 
+  const handleCategories = async() => {
+     const categoriesData = await fetchCategories()
+     setCategories(categoriesData)
+  }
+
+  const handleCategorySelected = (category: CategoryType) => {
+    if(category.attributes.category === categorySelected?.attributes.category) {
+      setCategorySelected(null)
+      removeFilter({
+        category: 'categories',
+        subCategory: 'category',
+        name: categorySelected.attributes.category,
+      });
+      return
+    }
+    setCategorySelected(category)
+  }
+
   const applyFilters = () => {
     if (sizeSelected) {
       addFilter({
@@ -76,20 +101,27 @@ export const Filters = ( ) => {
         name: colorSelected.attributes.name,
       });
     }
+    if(categorySelected){
+      addFilter({
+        category: 'categories',
+        subCategory: 'category',
+        name: categorySelected.attributes.category,
+      });
+    }
     handleShowFilters()
   }
-
-  
 
   const resetFilters = () => {
     setSizeSelected(null)
     setColorSelected(null)
+    setCategorySelected(null)
     resetFilter()
   }
 
   useEffect(() => {
     handleSizes()
     handleColor()
+    handleCategories()
   }, [])
 
   return (
@@ -134,6 +166,22 @@ export const Filters = ( ) => {
              />
             ))}
           </div>
+        </div>
+
+        {/* categories */}
+        <div className='m-4'>
+          <h3 className='font-semibold mb-3'>CATEGORY</h3>
+              {categories.map((category) => (
+                <div className={`flex items-center font-semibold ${open_sans.className}`}>
+                  <input 
+                    type='checkbox'
+                    value={category.attributes.category}
+                    className='w-5 h-5 accent-darkGray'
+                    onClick={() => handleCategorySelected(category)}
+                  /> 
+                  <span className='ml-4'>{category.attributes.category} </span>
+                </div>
+              ))}
         </div>
 
         {/* buttons */}
