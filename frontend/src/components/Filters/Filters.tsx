@@ -11,6 +11,8 @@ import { ColorType } from '@/@types/ColorType'
 import { fetchColors } from '@/services/colorService'
 import { fetchCategories } from '@/services/categoriesService'
 import { CategoryType } from '@/@types/CategoryType'
+import { GenderType } from '@/@types/GenderType'
+import { fetchGenders } from '@/services/genderService'
 
 
 const rubik = Rubik({ subsets: ['latin'] })
@@ -24,9 +26,11 @@ export const Filters = ( ) => {
   const [sizes, setSizes] = useState<SizeType[]>([])
   const [colors, setColors] = useState<ColorType[]>([])
   const [categories, setCategories] = useState<CategoryType[]>([])
+  const [genders, setGenders] = useState<GenderType[]>([])
   const [sizeSelected, setSizeSelected] = useState<SizeType | null>(null)
   const [colorSelected, setColorSelected] = useState<ColorType | null>(null)
   const [categorySelected, setCategorySelected] = useState<CategoryType | null>(null)
+  const [genderSelected, setGenderSelected] = useState<GenderType | null>(null)
 
 
   const handleShowFilters = () => {
@@ -54,6 +58,11 @@ export const Filters = ( ) => {
   const handleColor =  async() => {
     const colorData = await fetchColors()
     setColors(colorData)
+  }
+
+  const handleGender =  async() => {
+    const gendersData = await fetchGenders()
+    setGenders(gendersData)
   }
 
   const handleColorSelected = (color: ColorType) => {
@@ -87,6 +96,19 @@ export const Filters = ( ) => {
     setCategorySelected(category)
   }
 
+  const handleGenderSelected = (gender: GenderType) => {
+    if(gender.attributes.gender === genderSelected?.attributes.gender) {
+      setGenderSelected(null)
+      removeFilter({
+        category: 'genders',
+        subCategory: 'gender',
+        name: genderSelected.attributes.gender,
+      });
+      return
+    }
+    setGenderSelected(gender)
+  }
+
   const applyFilters = () => {
     if (sizeSelected) {
       addFilter({
@@ -108,6 +130,13 @@ export const Filters = ( ) => {
         name: categorySelected.attributes.category,
       });
     }
+    if(genderSelected){
+      addFilter({
+        category: 'genders',
+        subCategory: 'gender',
+        name: genderSelected.attributes.gender,
+      });
+    }
     handleShowFilters()
   }
 
@@ -115,6 +144,7 @@ export const Filters = ( ) => {
     setSizeSelected(null)
     setColorSelected(null)
     setCategorySelected(null)
+    setGenderSelected(null)
     resetFilter()
   }
 
@@ -122,6 +152,7 @@ export const Filters = ( ) => {
     handleSizes()
     handleColor()
     handleCategories()
+    handleGender()
   }, [])
 
   return (
@@ -131,7 +162,7 @@ export const Filters = ( ) => {
         <IoFilterSharp onClick={handleShowFilters} />
       </button>
 
-      <div className={`${rubik.className} fixed left-0 top-0 z-50 w-screen h-screen bg-gray ${showFilter ? '' : 'hidden'}`}>
+      <div className={`${rubik.className} fixed overflow-y-auto left-0 top-0 z-50 w-screen h-screen bg-gray ${showFilter ? '' : 'hidden'}`}>
         <button className='flex justify-between items-center w-full px-4 py-2 bg-faWhite'>
           <span className='font-semibold text-xl'>Filters</span>
           <IoMdClose onClick={handleShowFilters}/>
@@ -172,16 +203,34 @@ export const Filters = ( ) => {
         <div className='m-4'>
           <h3 className='font-semibold mb-3'>CATEGORY</h3>
               {categories.map((category) => (
-                <div className={`flex items-center font-semibold ${open_sans.className}`}>
+                <div className={`flex items-center font-semibold ${open_sans.className}`} key={category.id}>
                   <input 
                     type='checkbox'
                     value={category.attributes.category}
+                    checked={category.attributes.category === categorySelected?.attributes.category}
                     className='w-5 h-5 accent-darkGray'
                     onClick={() => handleCategorySelected(category)}
                   /> 
                   <span className='ml-4'>{category.attributes.category} </span>
                 </div>
               ))}
+        </div>
+
+        {/* gender */}
+        <div className='m-4'>
+          <h3 className='font-semibold mb-3'>GENDER</h3>
+          {genders.map((gender) => (
+            <div className={`flex items-center font-semibold ${open_sans.className}`} key={gender.id}>
+              <input 
+                type='checkbox'
+                value={gender.attributes.gender}
+                checked={gender.attributes.gender === genderSelected?.attributes.gender}
+                className='w-5 h-5 accent-darkGray'
+                onClick={() => handleGenderSelected(gender)}
+              /> 
+              <span className='ml-4'>{gender.attributes.gender}</span>
+            </div>
+          ))}
         </div>
 
         {/* buttons */}

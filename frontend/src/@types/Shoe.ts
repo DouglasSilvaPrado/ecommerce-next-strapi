@@ -1,5 +1,6 @@
 import { CategoryType } from './CategoryType'
 import { ColorType } from './ColorType'
+import { GenderType } from './GenderType'
 import { ImageType } from './ImageType'
 import { SizeType } from './SizeType'
 
@@ -26,6 +27,9 @@ export interface Shoe {
     },
     sizes: {
       data: SizeType[]
+    },
+    gender: {
+      data: GenderType[]
     }
   }
 }

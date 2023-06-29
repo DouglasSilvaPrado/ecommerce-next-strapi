@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "genders",
+  "info": {
+    "singularName": "gender",
+    "pluralName": "genders",
+    "displayName": "Gender"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "gender": {
+      "type": "string"
+    },
+    "shoes": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::shoe.shoe",
+      "mappedBy": "genders"
+    }
+  }
+}

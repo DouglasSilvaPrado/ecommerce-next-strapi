@@ -76,6 +76,12 @@
       "relation": "manyToMany",
       "target": "api::category.category",
       "inversedBy": "shoes"
+    },
+    "genders": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::gender.gender",
+      "inversedBy": "shoes"
     }
   }
 }
