@@ -1,7 +1,6 @@
 'use client'
 
 import { SizeType } from '@/@types/SizeType'
-import { fetchSizes } from '@/services/sizeService'
 import React, { useEffect, useState } from 'react'
 import { IoMdClose } from 'react-icons/io'
 import { IoFilterSharp } from 'react-icons/io5'
@@ -13,6 +12,7 @@ import { fetchCategories } from '@/services/categoriesService'
 import { CategoryType } from '@/@types/CategoryType'
 import { GenderType } from '@/@types/GenderType'
 import { fetchGenders } from '@/services/genderService'
+import { SizeFilter } from './components/SizeFilter/SizeFilter'
 
 
 const rubik = Rubik({ subsets: ['latin'] })
@@ -23,7 +23,6 @@ export const Filters = ( ) => {
 
   const { addFilter, resetFilter, removeFilter } = useAppStore()
   const [showFilter, setShowFilter] = useState(false)
-  const [sizes, setSizes] = useState<SizeType[]>([])
   const [colors, setColors] = useState<ColorType[]>([])
   const [categories, setCategories] = useState<CategoryType[]>([])
   const [genders, setGenders] = useState<GenderType[]>([])
@@ -35,24 +34,6 @@ export const Filters = ( ) => {
 
   const handleShowFilters = () => {
     setShowFilter(!showFilter)
-  }
-  
-  const handleSizes = async() => {
-    const sizeData = await fetchSizes()
-    setSizes(sizeData)
-  }
-
-  const handleSizeSelected = (size: SizeType) => {
-    if(size.attributes.size === sizeSelected?.attributes.size){
-      setSizeSelected(null)
-      removeFilter({
-        category: 'sizes',
-        subCategory: 'size',
-        name: sizeSelected.attributes.size.toString(),
-      })
-      return
-    }
-    setSizeSelected(size)
   }
   
   const handleColor =  async() => {
@@ -116,7 +97,8 @@ export const Filters = ( ) => {
         subCategory: 'size',
         name: sizeSelected.attributes.size.toString(),
       });
-    }if(colorSelected) {
+    }
+    if(colorSelected) {
       addFilter({
         category: 'colors',
         subCategory: 'name',
@@ -149,7 +131,6 @@ export const Filters = ( ) => {
   }
 
   useEffect(() => {
-    handleSizes()
     handleColor()
     handleCategories()
     handleGender()
@@ -169,7 +150,8 @@ export const Filters = ( ) => {
         </button>
 
         {/* sizes */}
-        <div className='m-4'>
+        <SizeFilter  sizeSelected={sizeSelected} setSizeSelected={setSizeSelected}/>
+        {/* <div className='m-4'>
           <h3 className='font-semibold mb-3'>SIZE</h3>
           <div className='flex flex-wrap'>
             {sizes?.map((size) => (
@@ -182,7 +164,7 @@ export const Filters = ( ) => {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
 
         {/* colors */}
         <div className='m-4'>
