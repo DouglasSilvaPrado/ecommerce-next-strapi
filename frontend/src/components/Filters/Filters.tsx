@@ -70,15 +70,20 @@ export const Filters = ( ) => {
 
   return (
     <>
-      <button className='flex justify-between items-center w-full px-4 py-2 bg-faWhite rounded-lg'>
+      <button className='flex justify-between items-center w-full px-4 py-2 bg-faWhite rounded-lg sm:hidden'>
         <span className='font-semibold text-sm'>Filters</span>
         <IoFilterSharp onClick={handleShowFilters} />
       </button>
 
-      <div className={`${rubik.className} fixed overflow-y-auto left-0 top-0 z-50 w-screen h-screen bg-gray ${showFilter ? '' : 'hidden'}`}>
-        <button className='flex justify-between items-center w-full px-4 py-2 bg-faWhite'>
-          <span className='font-semibold text-xl'>Filters</span>
-          <IoMdClose onClick={handleShowFilters}/>
+      <div 
+        className={
+          `${rubik.className} fixed overflow-y-auto left-0 top-0 z-50 w-screen h-screen bg-gray ${showFilter ? '' : 'hidden'}
+          sm:inline sm:static
+        `}>
+
+        <button className='flex justify-between items-center w-full px-4 py-2 bg-faWhite sm:bg-transparent'>
+          <span className='font-semibold text-xl sm:text-base md:text-lg'>Filters</span>
+          <IoMdClose onClick={handleShowFilters} className='sm:hidden'/>
         </button>
         <SizeFilter />
         <ColorFilter />
@@ -86,13 +91,13 @@ export const Filters = ( ) => {
         <GenderFilter />
         <div className='m-4 flex justify-between'>
           <button 
-            className='py-4 bg-darkGray w-1/2 rounded-lg mr-4 text-white text-xs'
+            className='py-4 bg-darkGray w-1/2 rounded-lg mr-4 text-white text-xs sm:py-2 md-py-3'
             onClick={applyFilters}
           >
             Apply
           </button>
           <button 
-            className='py-4 bg-transparent w-1/2 rounded-lg border border-darkGray text-xs' 
+            className='py-4 bg-transparent w-1/2 rounded-lg border border-darkGray text-xs sm:py-2 md-py-3' 
             onClick={() => resetFilters()}>
             Reset
           </button>
