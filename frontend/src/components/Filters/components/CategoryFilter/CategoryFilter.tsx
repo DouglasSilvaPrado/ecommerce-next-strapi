@@ -16,7 +16,7 @@ export const CategoryFilter = () => {
             <input 
               type='checkbox'
               value={category.attributes.category}
-              checked={category.attributes.category === categorySelected?.attributes.category}
+              defaultChecked={category.attributes.category === categorySelected?.attributes.category}
               className='w-5 h-5 accent-darkGray'
               onClick={() => handleCategorySelected(category)}
             /> 

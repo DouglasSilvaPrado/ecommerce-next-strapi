@@ -17,7 +17,7 @@ export const GenderFilter = () => {
           <input 
             type='checkbox'
             value={gender.attributes.gender}
-            checked={gender.attributes.gender === genderSelected?.attributes.gender}
+            defaultChecked={gender.attributes.gender === genderSelected?.attributes.gender}
             className='w-5 h-5 accent-darkGray'
             onClick={() => handleGenderSelected(gender)}
           /> 
