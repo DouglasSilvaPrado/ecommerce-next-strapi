@@ -3,30 +3,22 @@
 import React, { useEffect, useState } from 'react'
 import { ProductCard } from '../Card/Product'
 import { Shoe } from '@/@types/Shoe'
-import { getShoes } from '@/services/shoes'
+import { fetchShoesByFilter } from '@/services/shoes'
 import { useAppStore } from '@/store/store'
 
 export const ListProduct = () => {
   const [shoes, setShoes] = useState<Shoe[]>([])
   
-  const { selectedFilters } = useAppStore()
+  const { selectedFilters, setTotalShoes } = useAppStore()
 
- const fetchShoes = async() => {
-  const queryParams = selectedFilters.map((filter) => 
-    `filters[${filter.category}][${filter.subCategory}][$in]=${filter.name}`)
-    .join('&')
-  const url = `${process.env.NEXT_PUBLIC_API_URL}/api/shoes?populate=*&${queryParams}`
-  try {
-    const shoesData = await getShoes(url)
-    setShoes(shoesData)
-  } catch (error) {
-    console.error(error)
-  }
+const getShoes = async() => {
+  const data = await fetchShoesByFilter(selectedFilters)
+  setShoes(data.data)
+  setTotalShoes(data.meta.pagination.total)
 }
 
-
   useEffect(() => {
-    fetchShoes()
+    getShoes()
   },[selectedFilters])
 
   

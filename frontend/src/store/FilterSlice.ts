@@ -1,15 +1,12 @@
 import { CategoryType } from '@/@types/CategoryType'
 import { ColorType } from '@/@types/ColorType'
 import { GenderType } from '@/@types/GenderType'
+import { SelectedFilter } from '@/@types/SelectedFilter'
 import { SizeType } from '@/@types/SizeType'
 import { StateCreator } from 'zustand'
 
 
-type SelectedFilter = {
-  name: string
-  category: string
-  subCategory: string
-}
+
 
 export interface FilterSlice {
   selectedFilters: SelectedFilter[]
@@ -17,6 +14,7 @@ export interface FilterSlice {
   colorSelected: ColorType | null
   categorySelected: CategoryType | null
   genderSelected: GenderType | null
+  totalShoes: number
   setSizeSelected: (size: SizeType | null) => void
   setColorSelected: (color: ColorType | null) => void
   setCategorySelected: (category: CategoryType | null) => void
@@ -24,6 +22,7 @@ export interface FilterSlice {
   addFilter: (filter: SelectedFilter) => void
   removeFilter: (filter: SelectedFilter) => void
   resetFilter: () => void
+  setTotalShoes: (total: number) => void
 }
 
 
@@ -33,6 +32,7 @@ export const createFilterSlice: StateCreator<FilterSlice> = (set, get) => ({
   colorSelected: null,
   categorySelected: null,
   genderSelected: null,
+  totalShoes: 0,
 
   setSizeSelected:(size: SizeType | null) => {
     let sizeSelected = get().sizeSelected
@@ -83,5 +83,11 @@ export const createFilterSlice: StateCreator<FilterSlice> = (set, get) => ({
 
   resetFilter: () => {
     set({ selectedFilters: [] })
+  },
+
+  setTotalShoes: (total: number) => {
+    let totalShoes =  get().totalShoes
+    totalShoes = total
+    set({ totalShoes })
   }
 })

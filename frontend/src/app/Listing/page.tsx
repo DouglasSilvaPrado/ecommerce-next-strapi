@@ -1,5 +1,6 @@
 import { Banner } from '@/components/Banner/Banner';
 import { Filters } from '@/components/Filters/Filters';
+import { InfoProduct } from '@/components/InfoProduct/InfoProduct';
 import { ListProduct } from '@/components/ListProduct/ListProduct';
 
 
@@ -18,10 +19,7 @@ export default function Page() {
               <Filters />
             </div>
 
-            <div className='my-6 sm:order-first sm:ml-3'>
-              <h3 className='font-semibold text-xl'>Life Style Shoes</h3>
-              <p className='font-semibold text-sm'>122 items</p>
-            </div>
+            <InfoProduct />
 
           </div>
 
