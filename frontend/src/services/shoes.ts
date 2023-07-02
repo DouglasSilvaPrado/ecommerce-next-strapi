@@ -16,7 +16,6 @@ export const getShoes = async (url: string) => {
   try {
     const res = await fetch(url)
     const resJson = await res.json()
-    console.log("🚀 ~ file: shoes.ts:19 ~ getShoes ~ resJson:", resJson)
     return resJson
   } catch (error) {
     console.error(error)
@@ -24,11 +23,11 @@ export const getShoes = async (url: string) => {
   
 }
 
-export const fetchShoesByFilter = async(selectedFilters: SelectedFilter[]) => {
+export const fetchShoesByFilter = async(selectedFilters: SelectedFilter[], price: number = 0) => {
   const queryParams = selectedFilters.map((filter) => 
     `filters[${filter.category}][${filter.subCategory}][$in]=${filter.name}`)
     .join('&')
-  const url = `${process.env.NEXT_PUBLIC_API_URL}/api/shoes?populate=*&${queryParams}`
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/api/shoes?populate=*&${queryParams}&filters[price][$gte]=${price}`
   try {
     const data = await getShoes(url)
     return data

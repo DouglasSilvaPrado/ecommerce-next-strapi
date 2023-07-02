@@ -14,11 +14,13 @@ export interface FilterSlice {
   colorSelected: ColorType | null
   categorySelected: CategoryType | null
   genderSelected: GenderType | null
+  priceSelected: number
   totalShoes: number
   setSizeSelected: (size: SizeType | null) => void
   setColorSelected: (color: ColorType | null) => void
   setCategorySelected: (category: CategoryType | null) => void
   setGenderSelected: (gender: GenderType | null) => void
+  setPriceSelected: (price: number) => void
   addFilter: (filter: SelectedFilter) => void
   removeFilter: (filter: SelectedFilter) => void
   resetFilter: () => void
@@ -33,6 +35,7 @@ export const createFilterSlice: StateCreator<FilterSlice> = (set, get) => ({
   categorySelected: null,
   genderSelected: null,
   totalShoes: 0,
+  priceSelected: 0,
 
   setSizeSelected:(size: SizeType | null) => {
     let sizeSelected = get().sizeSelected
@@ -56,6 +59,12 @@ export const createFilterSlice: StateCreator<FilterSlice> = (set, get) => ({
     let genderSelected = get().genderSelected
     genderSelected = gender
     set({ genderSelected })
+  },
+
+  setPriceSelected: (price: number) => {
+    let priceSelected = get().priceSelected
+    priceSelected = price
+    set({ priceSelected })
   },
 
   addFilter: (filter: SelectedFilter) => {

@@ -9,6 +9,7 @@ import { SizeFilter } from './components/SizeFilter/SizeFilter'
 import { ColorFilter } from './components/ColorFilter/ColorFilter'
 import { CategoryFilter } from './components/CategoryFilter/CategoryFilter'
 import { GenderFilter } from './components/GenderFilter/GenderFilter'
+import { PriceFilter } from './components/PriceFilter/PriceFilter'
 
 const rubik = Rubik({ subsets: ['latin'] })
 
@@ -19,7 +20,8 @@ export const Filters = ( ) => {
     sizeSelected, setSizeSelected, 
     colorSelected, setColorSelected,
     categorySelected, setCategorySelected,
-    genderSelected, setGenderSelected
+    genderSelected, setGenderSelected,
+    setPriceSelected
   } = useAppStore()
   
   const [showFilter, setShowFilter] = useState(false)
@@ -65,6 +67,7 @@ export const Filters = ( ) => {
     setColorSelected(null)
     setCategorySelected(null)
     setGenderSelected(null)
+    setPriceSelected(0)
     resetFilter()
   }
 
@@ -89,6 +92,7 @@ export const Filters = ( ) => {
         <ColorFilter />
         <CategoryFilter />
         <GenderFilter />
+        <PriceFilter />
         <div className='m-4 flex justify-between'>
           <button 
             className='py-4 bg-darkGray w-1/2 rounded-lg mr-4 text-white text-xs sm:py-2 md-py-3'
