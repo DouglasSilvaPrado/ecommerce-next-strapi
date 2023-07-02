@@ -54,8 +54,12 @@ export default function Page({ params: { id } }: { params: { id: number } }) {
           <div className='my-6'>
             <p className='font-semibold mb-2'>ABOUT THE PRODUCT</p>
             <div className={`${openSans.className}`}>
-              <p>{shoe?.attributes.category}</p>
-              <p className='mt-3'>{shoe?.attributes.description}</p>
+            {shoe?.attributes.categories.data.map((category, index) => (
+              <span key={category.id}>
+                {category.attributes.category}
+                {index !== shoe.attributes.categories.data.length - 1 && " / "}
+              </span>
+            ))}
             </div>
           </div>
         </div>

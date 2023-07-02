@@ -30,10 +30,6 @@
       "type": "string",
       "pluginOptions": {}
     },
-    "category": {
-      "type": "string",
-      "pluginOptions": {}
-    },
     "quantity": {
       "type": "integer",
       "pluginOptions": {}
@@ -73,6 +69,18 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::size.size",
+      "inversedBy": "shoes"
+    },
+    "categories": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::category.category",
+      "inversedBy": "shoes"
+    },
+    "genders": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::gender.gender",
       "inversedBy": "shoes"
     }
   }
