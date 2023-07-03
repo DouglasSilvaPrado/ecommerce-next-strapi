@@ -52,7 +52,9 @@ export const Navbar = () => {
             <BiMenu className='w-5 h-5' />
           </button>
 
-          <Image src="/Logo.svg" alt="logo" width={80} height={20} className="md:w-[100px] lg:w-[138px] md:h-[32px]" />
+          <Link href="/">
+            <Image src="/Logo.svg" alt="logo" width={80} height={20} className="md:w-[100px] lg:w-[138px] md:h-[32px]" />
+          </Link>
 
           <div className='flex justify-end md:w-1/3'>
             <button className="mr-2">
@@ -62,9 +64,11 @@ export const Navbar = () => {
               <FaUser className='w-4 h-4 md:w-6 md:h-6' />
             </button>
 
+          <Link href="/Cart">
             <div className='w-5 h-5 md:w-7 md:h-7 bg-yellow rounded-full flex items-center justify-center'>
               <span className='font-semibold text-darkGray text-sm'> {cart.length} </span>
             </div>
+          </Link>
           </div>
         </div>
 

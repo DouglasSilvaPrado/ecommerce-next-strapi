@@ -4,9 +4,9 @@ import { StateCreator } from 'zustand';
 
 export interface CartSlice {
   cart: Product[],
-  favorites: Shoe[],
+  favorites: Product[],
   addToCart: (product: Product) => void
-  addToFavorites: (product: Shoe) => void
+  addToFavorites: (product: Product) => void
   removeToCart: (productId: number) => void
   updateCart:(productId: number, action: 'increase' | 'decrease') => void
 }
@@ -51,7 +51,7 @@ export const createCartSlice:StateCreator<CartSlice> = (set, get) => ({
     set ({cart})
   },
 
-  addToFavorites: (product: Shoe) => {
+  addToFavorites: (product: Product) => {
     const favorites = get().favorites;
     const findProductIndex = favorites.findIndex((favorite) => favorite.id === product.id);
   

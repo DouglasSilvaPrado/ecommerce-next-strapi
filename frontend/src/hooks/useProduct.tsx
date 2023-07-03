@@ -70,7 +70,7 @@ export const useProduct = ( id: number ) => {
           price: shoe.attributes.price,
           description: shoe.attributes.description,
           tag: shoe.attributes.tag,
-          category: shoe.attributes.category,
+          categories: shoe.attributes.categories,
           sku: shoe.attributes.sku,
           image: shoe.attributes.image.data.attributes.url,
           color: selectedColor!,
@@ -90,8 +90,9 @@ export const useProduct = ( id: number ) => {
   }
 
   const handleAddToFavorite = () => {
-    if(shoe) {
-      addToFavorites(shoe)
+    const product = isProductValid()
+    if(product) {
+      addToFavorites(product)
     }
   }
 

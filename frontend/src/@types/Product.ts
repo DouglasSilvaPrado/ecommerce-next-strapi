@@ -1,3 +1,4 @@
+import { CategoryType } from './CategoryType'
 import { ColorType } from './ColorType'
 import { SizeType } from './SizeType'
 
@@ -9,7 +10,9 @@ export type Product = {
     description: string,
     quantity?: number,
     tag: string,
-    category: string,
+    categories: {
+      data: CategoryType[]
+    }
     sku: string,
     image: string,
     color: ColorType
