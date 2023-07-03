@@ -23,11 +23,12 @@ export const getShoes = async (url: string) => {
   
 }
 
-export const fetchShoesByFilter = async(selectedFilters: SelectedFilter[], price: number = 0) => {
+export const fetchShoesByFilter = async(selectedFilters: SelectedFilter[], price: number = 0, page: number = 1) => {
   const queryParams = selectedFilters.map((filter) => 
     `filters[${filter.category}][${filter.subCategory}][$in]=${filter.name}`)
     .join('&')
-  const url = `${process.env.NEXT_PUBLIC_API_URL}/api/shoes?populate=*&${queryParams}&filters[price][$gte]=${price}`
+  const url = `
+    ${process.env.NEXT_PUBLIC_API_URL}/api/shoes?populate=*&${queryParams}&filters[price][$gte]=${price}&pagination[page]=${page}&pagination[pageSize]=9`
   try {
     const data = await getShoes(url)
     return data
