@@ -16,6 +16,8 @@ export interface FilterSlice {
   genderSelected: GenderType | null
   priceSelected: number
   totalShoes: number
+  currentPage: number
+  pageCount: number
   setSizeSelected: (size: SizeType | null) => void
   setColorSelected: (color: ColorType | null) => void
   setCategorySelected: (category: CategoryType | null) => void
@@ -25,6 +27,8 @@ export interface FilterSlice {
   removeFilter: (filter: SelectedFilter) => void
   resetFilter: () => void
   setTotalShoes: (total: number) => void
+  setCurrentPage: (page: number, action: 'increase' | 'decrease' | 'set') => void
+  setPageCount: (pageLength: number) => void
 }
 
 
@@ -36,6 +40,8 @@ export const createFilterSlice: StateCreator<FilterSlice> = (set, get) => ({
   genderSelected: null,
   totalShoes: 0,
   priceSelected: 0,
+  currentPage: 1,
+  pageCount: 1,
 
   setSizeSelected:(size: SizeType | null) => {
     let sizeSelected = get().sizeSelected
@@ -98,5 +104,27 @@ export const createFilterSlice: StateCreator<FilterSlice> = (set, get) => ({
     let totalShoes =  get().totalShoes
     totalShoes = total
     set({ totalShoes })
+  },
+
+  setCurrentPage: (page: number, action: 'increase' | 'decrease' | 'set') => {
+    let currentPage = get().currentPage
+    const pageCount = get().pageCount
+    if(action === 'increase' && currentPage < pageCount) {
+      currentPage += page
+    }
+    if(action === 'decrease' && currentPage <= pageCount && currentPage > 1) {
+      currentPage -= page
+    }
+    if(action === 'set') {
+      currentPage = page
+    }
+    set({ currentPage })
+  },
+
+  setPageCount: (pageLength: number) => {
+    let pageCount = get().pageCount
+    pageCount = pageLength
+    set({ pageCount })
   }
+
 })
