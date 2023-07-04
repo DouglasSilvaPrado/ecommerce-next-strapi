@@ -3,7 +3,7 @@ import { ColorType } from './ColorType'
 import { SizeType } from './SizeType'
 
 export type Product = {
-  id: number,
+  id: string,
   attributes: {
     name: string,
     price: number,
