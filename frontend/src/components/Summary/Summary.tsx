@@ -12,7 +12,7 @@ export const Summary = () => {
   const { totalItems, totalPrice } = useAppStore()
 
   return (
-    <div className='bg-faWhite rounded-2xl p-4'>
+    <div className='bg-faWhite rounded-2xl p-4 lg:bg-transparent'>
       <h2 className={`${rubik.className} mb-2 font-semibold text-xl`}>Order Summary</h2>
       <div>
         <div className='flex justify-between font-semibold my-4'>
