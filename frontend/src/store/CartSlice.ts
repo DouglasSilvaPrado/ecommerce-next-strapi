@@ -1,54 +1,62 @@
 import { Product } from '@/@types/Product';
-import { Shoe } from '@/@types/Shoe';
 import { StateCreator } from 'zustand';
 
 export interface CartSlice {
   cart: Product[],
   favorites: Product[],
+  totalItems: number,
   addToCart: (product: Product) => void
   addToFavorites: (product: Product) => void
-  removeToCart: (productId: number) => void
-  updateCart:(productId: number, action: 'increase' | 'decrease') => void
+  removeToCart: (productId: string) => void
+  updateCart:(productId: string, action: 'increase' | 'decrease') => void
 }
 
 
 export const createCartSlice:StateCreator<CartSlice> = (set, get) => ({
   cart: [],
   favorites: [],
+  totalItems: 0,
+
   addToCart:(product) => {
     const cart = get().cart
-    const findProduct = cart.find((item) => 
-      item.id === product.id &&
-      item.attributes.color === product.attributes.color &&
-      item.attributes.size === product.attributes.size
-    )
+    let totalItems = get().totalItems
+
+    const findProduct = cart.find((item) => item.id === product.id)
 
     if(findProduct){
       findProduct.attributes.quantity! += 1
+      totalItems +=1
     } else {
       cart.push({ ...product, attributes:{...product.attributes, quantity: 1}});
+      totalItems +=1
     }
-    set({ cart })
+    set({ cart, totalItems})
   },
 
   removeToCart:(productId) => {
-    set({ cart: get().cart.filter((item) => item.id !== productId) })
+    const cart = get().cart
+    let totalItems = get().totalItems
+    const findProduct = cart.find((item) => item.id === productId)
+    totalItems -= findProduct?.attributes.quantity!
+    set({ cart: cart.filter((item) => item.id !== productId), totalItems})
   },
 
   updateCart: (productId , action) => {
     const cart = get().cart
+    let totalItems = get().totalItems
     const findProduct = cart.find((item) => item.id === productId)
     if(findProduct){
       if(action === 'decrease'){
-        findProduct.attributes.quantity = findProduct.attributes.quantity! > 1
-          ? findProduct.attributes.quantity! - 1
-          : findProduct.attributes.quantity!
+        if(findProduct.attributes.quantity! > 1)
+          findProduct.attributes.quantity = findProduct.attributes.quantity! - 1
+          totalItems -= 1
       }else {
         findProduct.attributes.quantity! += 1
+        totalItems += 1
       }
 
     }
-    set ({cart})
+    set ({cart, totalItems})
   },
 
   addToFavorites: (product: Product) => {
@@ -62,6 +70,6 @@ export const createCartSlice:StateCreator<CartSlice> = (set, get) => ({
     }
   
     set({ favorites });
-  }
+  },
   
 })
