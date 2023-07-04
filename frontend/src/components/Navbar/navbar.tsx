@@ -31,7 +31,7 @@ export const Navbar = () => {
 
   const [toggleMenu, setToggleMenu] = useState(false);
 
-  const {  cart } = useAppStore()
+  const { totalItems } = useAppStore()
 
   return (
     <nav 
@@ -66,7 +66,7 @@ export const Navbar = () => {
 
           <Link href="/Cart">
             <div className='w-5 h-5 md:w-7 md:h-7 bg-yellow rounded-full flex items-center justify-center'>
-              <span className='font-semibold text-darkGray text-sm'> {cart.length} </span>
+              <span className='font-semibold text-darkGray text-sm'> {totalItems} </span>
             </div>
           </Link>
           </div>

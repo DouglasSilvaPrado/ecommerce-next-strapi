@@ -54,11 +54,11 @@ export const CartCard = ( { product }: CartCardProps ) => {
             <p className='font-semibold'>Size {product.attributes.size.attributes.size}</p>
             <div className='border px-2 rounded-lg flex items-center text-darkGray'>
               <button className=''>
-                <AiOutlineMinus className='w-4 h-4' onClick={() => updateCart(product.id, 'decrease')}/>
+                <AiOutlineMinus className='w-4 h-4' onClick={() => updateCart(product, 'decrease')}/>
               </button>
               <p className='text-sm mx-2'>{product.attributes.quantity}</p>
               <button className=''>
-                <AiOutlinePlus className='w-4 h-4' onClick={() => updateCart(product.id, 'increase')}/>
+                <AiOutlinePlus className='w-4 h-4' onClick={() => updateCart(product, 'increase')}/>
               </button>
             </div>
           </div>
@@ -69,7 +69,7 @@ export const CartCard = ( { product }: CartCardProps ) => {
 
           <div className='flex'>
             <MdOutlineFavoriteBorder className='mr-6 w-6 h-6 hover:text-red-500 cursor-pointer' onClick={() => addToFavorites(product)} />
-            <RiDeleteBin2Line className='mr-6 w-6 h-6 hover:text-red-500 cursor-pointer' onClick={() => removeToCart(product.id)} />
+            <RiDeleteBin2Line className='mr-6 w-6 h-6 hover:text-red-500 cursor-pointer' onClick={() => removeToCart(product)} />
           </div>
 
         </div>

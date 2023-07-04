@@ -1,22 +1,29 @@
 import { Product } from '@/@types/Product';
-import { Shoe } from '@/@types/Shoe';
 import { StateCreator } from 'zustand';
 
 export interface CartSlice {
   cart: Product[],
   favorites: Product[],
+  totalItems: number,
+  totalPrice: number,
   addToCart: (product: Product) => void
   addToFavorites: (product: Product) => void
-  removeToCart: (productId: number) => void
-  updateCart:(productId: number, action: 'increase' | 'decrease') => void
+  removeToCart: (product: Product) => void
+  updateCart:(product: Product, action: 'increase' | 'decrease') => void
 }
 
 
 export const createCartSlice:StateCreator<CartSlice> = (set, get) => ({
   cart: [],
   favorites: [],
+  totalItems: 0,
+  totalPrice: 0,
+
   addToCart:(product) => {
     const cart = get().cart
+    let totalItems = get().totalItems
+    let totalPrice = get().totalPrice
+
     const findProduct = cart.find((item) => 
       item.id === product.id &&
       item.attributes.color === product.attributes.color &&
@@ -25,30 +32,59 @@ export const createCartSlice:StateCreator<CartSlice> = (set, get) => ({
 
     if(findProduct){
       findProduct.attributes.quantity! += 1
+      totalItems += 1
+      totalPrice += findProduct.attributes.price
     } else {
       cart.push({ ...product, attributes:{...product.attributes, quantity: 1}});
+      totalItems += 1
+      totalPrice += product.attributes.price
     }
-    set({ cart })
+    set({ cart, totalItems, totalPrice})
   },
 
-  removeToCart:(productId) => {
-    set({ cart: get().cart.filter((item) => item.id !== productId) })
-  },
-
-  updateCart: (productId , action) => {
+  removeToCart:(product: Product) => {
     const cart = get().cart
-    const findProduct = cart.find((item) => item.id === productId)
+    let totalItems = get().totalItems
+    let totalPrice = get().totalPrice
+
+    const findProduct = cart.find((item) => 
+      item.id === product.id &&
+      item.attributes.color === product.attributes.color &&
+      item.attributes.size === product.attributes.size
+    )
+
+    totalItems -= findProduct!.attributes.quantity!
+    totalPrice -= (findProduct!.attributes.quantity! * findProduct!.attributes.price)
+    set({ cart: cart.filter((item) => item !== findProduct), totalItems, totalPrice})
+  },
+
+  updateCart: (product: Product , action) => {
+    const cart = get().cart
+    let totalItems = get().totalItems
+    let totalPrice = get().totalPrice
+
+    const findProduct = cart.find((item) => 
+      item.id === product.id &&
+      item.attributes.color === product.attributes.color &&
+      item.attributes.size === product.attributes.size
+    )
+    
+    
     if(findProduct){
       if(action === 'decrease'){
-        findProduct.attributes.quantity = findProduct.attributes.quantity! > 1
-          ? findProduct.attributes.quantity! - 1
-          : findProduct.attributes.quantity!
+        if(findProduct.attributes.quantity! > 1) {
+          findProduct.attributes.quantity = findProduct.attributes.quantity! - 1
+          totalItems -= 1
+          totalPrice -= findProduct.attributes.price
+        }
       }else {
         findProduct.attributes.quantity! += 1
+        totalItems += 1
+        totalPrice += findProduct.attributes.price
       }
 
     }
-    set ({cart})
+    set ({cart, totalItems, totalPrice})
   },
 
   addToFavorites: (product: Product) => {
@@ -62,6 +98,6 @@ export const createCartSlice:StateCreator<CartSlice> = (set, get) => ({
     }
   
     set({ favorites });
-  }
+  },
   
 })
