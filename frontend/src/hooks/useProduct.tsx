@@ -8,7 +8,6 @@ import { fetchShoeByID } from '@/services/shoes'
 import { useAppStore } from '@/store/store'
 import  { useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
-import { v4 as uuidv4 } from 'uuid';
 
 export const useProduct = ( id: number ) => {
   const { addToCart, addToFavorites, favorites } = useAppStore()
@@ -64,9 +63,8 @@ export const useProduct = ( id: number ) => {
     }
 
     if(shoe){
-      const id = uuidv4()
       const product: Product = {
-        id,
+        id: shoe.id,
         attributes: {
           name: shoe.attributes.name,
           price: shoe.attributes.price,
@@ -98,7 +96,7 @@ export const useProduct = ( id: number ) => {
     }
   }
 
-  const isFavorite = (shoe: Product | undefined) => {
+  const isFavorite = (shoe: Shoe | undefined) => {
     if (shoe) {
       return favorites.some((favorite) => favorite.id === shoe.id);
     }
