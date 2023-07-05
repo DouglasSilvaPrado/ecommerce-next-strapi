@@ -20,7 +20,7 @@ export const createCartSlice:StateCreator<CartSlice> = (set, get) => ({
   favorites: [],
   totalItems: 0,
   totalPrice: 0,
-  shippingValue: 6.99,
+  shippingValue: 0,
 
   addToCart:(product) => {
     const cart = get().cart

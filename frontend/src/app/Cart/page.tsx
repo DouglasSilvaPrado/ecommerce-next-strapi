@@ -1,11 +1,11 @@
 'use client'
 import { Rubik } from 'next/font/google'
-import { CartCard } from '@/components/CartCard/CartCard';
 import { useAppStore } from '@/store/store';
 import { GridCarousel } from '@/components/GridCarousel/GridCarousel';
 import { Summary } from '@/components/Summary';
 import React, { useEffect } from 'react';
 import { ProductCard } from '@/components/Card/Product';
+import { CartCard } from '@/components/CartCard';
 
 const rubik = Rubik({ subsets: ['latin'] })
 
@@ -37,7 +37,24 @@ export default function Page() {
                     <p className='text-sm'>Items in your bag not reserved- check out now to make them yours.</p>
                   </div>
                   {cart.map((item) => (
-                    <CartCard  key={item.id} product={item}/>
+                    <CartCard.Root>
+                      <CartCard.Image image={item.attributes.image}/>
+                      <CartCard.Content>
+                        <CartCard.PrimaryInfo 
+                          productName={item.attributes.name}
+                          colorName={item.attributes.color.attributes.name}
+                          quantity={item.attributes.quantity!}
+                          price={item.attributes.price}
+                          categories={item.attributes.categories.data}
+                        />
+                        <CartCard.SecondaryInfo>
+                          <CartCard.SizeInfo size={item.attributes.size.attributes.size}/>
+                          <CartCard.ActionsQuantity product={item} />
+                        </CartCard.SecondaryInfo>
+                        <CartCard.Price price={item.attributes.price} quantity={item.attributes.quantity!}/>
+                        <CartCard.Actions product={item}/>
+                      </CartCard.Content>
+                    </CartCard.Root>
                   ))}
                 </div>
             </div>
