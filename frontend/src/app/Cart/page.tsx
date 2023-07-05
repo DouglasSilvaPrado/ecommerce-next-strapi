@@ -4,12 +4,19 @@ import { CartCard } from '@/components/CartCard/CartCard';
 import { useAppStore } from '@/store/store';
 import { GridCarousel } from '@/components/GridCarousel/GridCarousel';
 import { Summary } from '@/components/Summary';
+import React, { useEffect } from 'react';
+import { ProductCard } from '@/components/Card/Product';
 
 const rubik = Rubik({ subsets: ['latin'] })
 
 
 export default function Page() {
-  const { cart } = useAppStore()
+  const { cart, fetchShoes, shoes  } = useAppStore()
+
+  useEffect(() => {
+    fetchShoes()
+  },[])
+
   return (
     <div>
 
@@ -59,7 +66,13 @@ export default function Page() {
             <h3 className='font-semibold text-xl my-2'>You may also like</h3>
           </div>
           <div>
-            <GridCarousel />
+            <GridCarousel >
+              {shoes.map((shoe) => (
+                <React.Fragment key={shoe.id}>
+                  <ProductCard shoe={shoe} key={shoe.id} />
+                </React.Fragment>
+              ))}
+            </GridCarousel>
           </div>
         </div>
       </div>

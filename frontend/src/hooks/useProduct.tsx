@@ -10,7 +10,7 @@ import  { useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 
 export const useProduct = ( id: number ) => {
-  const { addToCart, addToFavorites, favorites } = useAppStore()
+  const { addToCart, addToFavorites, favorites, fetchShoes, shoes  } = useAppStore()
 
   const [shoe, setShoe] = useState<Shoe>()
   const [galleryImages, setGalleryImages] = useState<GalleryItems[]>([])
@@ -107,5 +107,10 @@ export const useProduct = ( id: number ) => {
     fetchShoe()
   }, []);
 
-  return  { galleryImages, shoe, selectedColor, sizeSelection, handleColor, handleSize, handleAddToCart, handleAddToFavorite, isFavorite}
+  useEffect(() => {
+    fetchShoes()
+  },[])
+
+
+  return  { galleryImages, shoe, selectedColor, sizeSelection, shoes, handleColor, handleSize, handleAddToCart, handleAddToFavorite, isFavorite}
 }

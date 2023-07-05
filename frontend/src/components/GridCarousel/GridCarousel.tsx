@@ -1,37 +1,30 @@
-import React, { useEffect } from 'react'
+import React, { ReactNode } from 'react'
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import { ProductCard } from '../Card/Product';
-import { useAppStore } from '@/store/store';
 
 
-export const GridCarousel = () => {
+const responsiveDefault = {
+  desktop: {
+    breakpoint: { max: 3000, min: 1023 },
+    items: 4
+  },
+  tablet: {
+    breakpoint: { max: 1023, min: 639 },
+    items: 3
+  },
+  mobile: {
+    breakpoint: { max: 639, min: 0 },
+    items: 2
+  }
+};
 
-  const { fetchShoes, shoes } = useAppStore()
-  
+type GridCarouselProps = {
+  children: ReactNode
+  responsive?: typeof responsiveDefault
+}
 
-  useEffect(() => {
-    fetchShoes()
-  },[])
+export const GridCarousel = ({ children, responsive = responsiveDefault }: GridCarouselProps) => {
 
-  const responsive = {
-    superLargeDesktop: {
-      breakpoint: { max: 4000, min: 3000 },
-      items: 4
-    },
-    desktop: {
-      breakpoint: { max: 3000, min: 1023 },
-      items: 4
-    },
-    tablet: {
-      breakpoint: { max: 1023, min: 639 },
-      items: 3
-    },
-    mobile: {
-      breakpoint: { max: 639, min: 0 },
-      items: 2
-    }
-  };
   return (
     <Carousel
       responsive={responsive}
@@ -43,9 +36,7 @@ export const GridCarousel = () => {
       removeArrowOnDeviceType={["tablet", "mobile", "desktop", "superLargeDesktop"]}
 
     >
-      {shoes.map((shoe) => (
-        <ProductCard shoe={shoe} key={shoe.id} />
-      ))}
+      { children }
   </Carousel>
   )
 }

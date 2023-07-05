@@ -9,6 +9,8 @@ import { ProductGallery } from '@/components/Gallery/ProductGallery'
 import { GridCarousel } from '@/components/GridCarousel/GridCarousel'
 import { ProductGalleryCarrousel } from '@/components/Gallery/ProductGalleryCarrousel'
 import { useProduct } from '@/hooks/useProduct'
+import React from 'react'
+import { ProductCard } from '@/components/Card/Product'
 
 
 const rubik = Rubik({ subsets: ['latin'] })
@@ -16,7 +18,7 @@ const openSans = Open_Sans({ subsets: ['latin'] })
 
 export default function Page({ params: { id } }: { params: { id: number } }) {
 
-  const { galleryImages, shoe, selectedColor, sizeSelection, handleColor, handleSize, handleAddToCart, handleAddToFavorite, isFavorite} = useProduct(id)
+  const { galleryImages, shoe, selectedColor, sizeSelection, handleColor, handleSize, handleAddToCart, handleAddToFavorite, isFavorite, shoes} = useProduct(id)
 
   return (
     <div className={`${rubik.className}`}>
@@ -72,7 +74,13 @@ export default function Page({ params: { id } }: { params: { id: number } }) {
             <h3 className='font-semibold text-xl my-2'>You may also like</h3>
           </div>
           <div>
-            <GridCarousel />
+            <GridCarousel >
+              {shoes.map((shoe) => (
+                <React.Fragment key={shoe.id}>
+                  <ProductCard shoe={shoe} key={shoe.id} />
+                </React.Fragment>
+              ))}
+            </GridCarousel>
           </div>
         </div>
       </div>
