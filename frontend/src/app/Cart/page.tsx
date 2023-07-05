@@ -2,8 +2,8 @@
 import { Rubik } from 'next/font/google'
 import { CartCard } from '@/components/CartCard/CartCard';
 import { useAppStore } from '@/store/store';
-import { Summary } from '@/components/Summary/Summary';
 import { GridCarousel } from '@/components/GridCarousel/GridCarousel';
+import { Summary } from '@/components/Summary';
 
 const rubik = Rubik({ subsets: ['latin'] })
 
@@ -44,7 +44,11 @@ export default function Page() {
 
         {/* summary */}
         <div className='my-6 sm:my-0 sm:w-5/12'>
-          <Summary />
+          <Summary.Root>
+            <Summary.Title title='Order Summary' />
+            <Summary.Content />
+            <Summary.Action />
+          </Summary.Root>
         </div>
 
       </div>
