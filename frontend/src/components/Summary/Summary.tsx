@@ -9,7 +9,7 @@ const rubik = Rubik({ subsets: ['latin'] })
 
 
 export const Summary = () => {
-  const { totalItems, totalPrice } = useAppStore()
+  const { totalItems, totalPrice, shippingValue } = useAppStore()
 
   return (
     <div className='bg-faWhite rounded-2xl p-4 lg:bg-transparent'>
@@ -21,7 +21,7 @@ export const Summary = () => {
         </div>
         <div className='flex justify-between font-semibold my-4'>
           <p>Delivery</p>
-          <p>$6.99</p>
+          <p>${shippingValue.toFixed(2)}</p>
         </div>
         <div className='flex justify-between font-semibold my-4'>
           <p>Sales Tax</p>
