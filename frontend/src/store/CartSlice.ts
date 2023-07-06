@@ -6,10 +6,12 @@ export interface CartSlice {
   favorites: Product[],
   totalItems: number,
   totalPrice: number,
+  shippingValue: number,
   addToCart: (product: Product) => void
   addToFavorites: (product: Product) => void
   removeToCart: (product: Product) => void
   updateCart:(product: Product, action: 'increase' | 'decrease') => void
+  setShippingValue: (value: number) => void
 }
 
 
@@ -18,6 +20,7 @@ export const createCartSlice:StateCreator<CartSlice> = (set, get) => ({
   favorites: [],
   totalItems: 0,
   totalPrice: 0,
+  shippingValue: 0,
 
   addToCart:(product) => {
     const cart = get().cart
@@ -100,4 +103,9 @@ export const createCartSlice:StateCreator<CartSlice> = (set, get) => ({
     set({ favorites });
   },
   
+  setShippingValue: (value: number) =>  {
+    let shippingValue = get().shippingValue
+    shippingValue = value
+    set({ shippingValue })
+  }
 })

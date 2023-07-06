@@ -1,15 +1,22 @@
 'use client'
 import { Rubik } from 'next/font/google'
-import { CartCard } from '@/components/CartCard/CartCard';
 import { useAppStore } from '@/store/store';
-import { Summary } from '@/components/Summary/Summary';
 import { GridCarousel } from '@/components/GridCarousel/GridCarousel';
+import { Summary } from '@/components/Summary';
+import React, { useEffect } from 'react';
+import { ProductCard } from '@/components/Card/Product';
+import { CartCard } from '@/components/CartCard';
 
 const rubik = Rubik({ subsets: ['latin'] })
 
 
 export default function Page() {
-  const { cart } = useAppStore()
+  const { cart, fetchShoes, shoes  } = useAppStore()
+
+  useEffect(() => {
+    fetchShoes()
+  },[])
+
   return (
     <div>
 
@@ -30,7 +37,24 @@ export default function Page() {
                     <p className='text-sm'>Items in your bag not reserved- check out now to make them yours.</p>
                   </div>
                   {cart.map((item) => (
-                    <CartCard  key={item.id} product={item}/>
+                    <CartCard.Root>
+                      <CartCard.Image image={item.attributes.image}/>
+                      <CartCard.Content>
+                        <CartCard.PrimaryInfo 
+                          productName={item.attributes.name}
+                          color={item.attributes.color}
+                          quantity={item.attributes.quantity!}
+                          price={item.attributes.price}
+                          categories={item.attributes.categories.data}
+                        />
+                        <CartCard.SecondaryInfo>
+                          <CartCard.SizeInfo size={item.attributes.size.attributes.size}/>
+                          <CartCard.ActionsQuantity product={item} />
+                        </CartCard.SecondaryInfo>
+                        <CartCard.Price price={item.attributes.price} quantity={item.attributes.quantity!}/>
+                        <CartCard.Actions product={item}/>
+                      </CartCard.Content>
+                    </CartCard.Root>
                   ))}
                 </div>
             </div>
@@ -44,7 +68,11 @@ export default function Page() {
 
         {/* summary */}
         <div className='my-6 sm:my-0 sm:w-5/12'>
-          <Summary />
+          <Summary.Root>
+            <Summary.Title title='Order Summary' />
+            <Summary.Content />
+            <Summary.Action />
+          </Summary.Root>
         </div>
 
       </div>
@@ -55,7 +83,13 @@ export default function Page() {
             <h3 className='font-semibold text-xl my-2'>You may also like</h3>
           </div>
           <div>
-            <GridCarousel />
+            <GridCarousel >
+              {shoes.map((shoe) => (
+                <React.Fragment key={shoe.id}>
+                  <ProductCard shoe={shoe} key={shoe.id} />
+                </React.Fragment>
+              ))}
+            </GridCarousel>
           </div>
         </div>
       </div>
