@@ -42,7 +42,7 @@ export default function Page() {
                       <CartCard.Content>
                         <CartCard.PrimaryInfo 
                           productName={item.attributes.name}
-                          colorName={item.attributes.color.attributes.name}
+                          color={item.attributes.color}
                           quantity={item.attributes.quantity!}
                           price={item.attributes.price}
                           categories={item.attributes.categories.data}
