@@ -15,7 +15,7 @@ export const OrderDetails = () => {
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1023 },
-      items: 2
+      items: 1
     },
     tablet: {
       breakpoint: { max: 1023, min: 639 },
@@ -35,8 +35,11 @@ export const OrderDetails = () => {
         {cart.map((product) => (
             <React.Fragment key={product.id}>
               <CartCard.Root>
-                <CartCard.Image image={product.attributes.image}/>
-                <CartCard.Content>
+              <CartCard.Image 
+                image={product.attributes.image} 
+                className='sm:hidden sm:w-1/12 md:block md:w-4/12'
+              />
+                <CartCard.Content className='sm:w-11/12 md:w-8/12'>
                   <CartCard.PrimaryInfo 
                     productName={product.attributes.name}
                     color={product.attributes.color}
