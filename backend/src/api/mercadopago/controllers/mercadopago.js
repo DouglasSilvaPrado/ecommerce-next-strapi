@@ -15,38 +15,21 @@ const { createCoreController } = require('@strapi/strapi').factories;
 module.exports = {
   creatingCheckoutRedirectLink: async (ctx) => {
     const body = ctx.request.body
-    const unitPrice = Number(body.unit_price)
-    const title = body.title.trim()
-    const quantity = Number(body.quantity)
 
-    if(title === undefined || unitPrice === undefined || quantity === undefined){
-      ctx.throw(400, "Missing required fields.")
-    }
+    const updatedItems = body.items.map(item => {
+      return {
+        ...item,
+        title: item.title.trim(),
+      };
+    });
 
-    if(title === ""){
-      ctx.throw(400, "Title field cannot be empty.")
-    }
-
-    if (isNaN(unitPrice) || isNaN(quantity)){
-       ctx.throw(400,"The 'unit_price' and 'quantity' fields must be numerical.")
-    }
-
-    if(unitPrice < 4) {
-      ctx.throw(400, "The 'unit_price' field must be greater than 4.")
-    }
-
-    if(quantity < 1) {
-      ctx.throw(400, "The 'quantity' field must be greater than 1.")
-    }
+    const shipments = body.shipments
 
     const preference = {
       items: [
-        {
-          title,
-          unit_price: unitPrice,
-          quantity
-        }
-      ]
+        ...updatedItems
+      ],
+      shipments,
     }
 
     try {
