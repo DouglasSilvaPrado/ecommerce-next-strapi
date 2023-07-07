@@ -1,3 +1,4 @@
+import { Client } from '@/@types/Client'
 import { FormCheckoutProps } from '@/@types/FormCheckoutProps'
 import { schemaCheckout } from '@/schema/schemaCheckout'
 import { useAppStore } from '@/store/store'
@@ -6,9 +7,12 @@ import { maskZipCode } from '@/utils/maskZipCode'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
+import { useRouter } from 'next/navigation';
 
 export const useFormCheckout = () => {
-  const { setShippingValue } = useAppStore()
+  const { setShippingValue, setClient } = useAppStore()
+  const { push } = useRouter();
 
   const {
     register,
@@ -38,7 +42,21 @@ export const useFormCheckout = () => {
   const zipCode = watch('shippingAddress.zipCode')
 
   const handleFormSubmit = async (data: FormCheckoutProps) => {
-    console.log(data)
+    try {
+      const newClient: Client = {
+        email: data.contact.email,
+        firstName: data.shippingAddress.firstName,
+        lastName: data.shippingAddress.lastName,
+        phoneNumber: data.shippingAddress.phoneNumber,
+        zipCode: data.shippingAddress.zipCode,
+      }
+      setClient(newClient)
+      toast.success('Client created successfully')
+      push('/Payment');
+    } catch (error) {
+      toast.error('Error when registering :( ' + error)
+    }
+    
   }
 
   useEffect(() => {
