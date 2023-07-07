@@ -1,0 +1,18 @@
+{
+  "kind": "collectionType",
+  "collectionName": "mercadopagos",
+  "info": {
+    "singularName": "mercadopago",
+    "pluralName": "mercadopagos",
+    "displayName": "mercadopago"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "aprovado": {
+      "type": "boolean"
+    }
+  }
+}
