@@ -10,7 +10,7 @@ const rubik = Rubik({subsets: ['latin']})
 
 export const FormCheckout = () => {
 
-  const { handleSubmit, handleFormSubmit, setShippingValue, register, errors } = useFormCheckout()
+  const { handleSubmit, handleFormSubmit, handleShippingValue, register, errors } = useFormCheckout()
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
@@ -60,7 +60,7 @@ export const FormCheckout = () => {
         <h3 className={`${rubik.className} font-semibold text-xl my-5`}>Shipping Address</h3>
         
         <div className='my-4'>
-          <div className='bg-faWhite rounded-xl p-4 cursor-pointer' onClick={() => setShippingValue(6)}>
+          <div className='bg-faWhite rounded-xl p-4 cursor-pointer' onClick={() => handleShippingValue(6)}>
             <div className='flex justify-between items-center mb-2'>
               <h4 className={`${rubik.className} text-xl font-semibold`}>Standard Delivery</h4>
               <p className={`${rubik.className} font-semibold text-blue`}>$6.00</p>
@@ -70,7 +70,7 @@ export const FormCheckout = () => {
         </div>
 
         <div>
-          <div className='border border-darkGray rounded-xl p-4 cursor-pointer' onClick={() => setShippingValue(0)}>
+          <div className='border border-darkGray rounded-xl p-4 cursor-pointer' onClick={() => handleShippingValue(0)}>
             <div className='flex justify-between items-center mb-2'>
               <h4 className={`${rubik.className} text-xl font-semibold`}>Collect in store</h4>
               <p className={`${rubik.className} font-semibold`}>Free</p>
