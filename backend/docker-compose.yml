@@ -1,0 +1,16 @@
+version: "3"
+services:
+  postgres_strapi:
+    container_name: postgres_strapi
+    hostname: postgres_strapi
+    image: postgres
+    restart: always
+    volumes:
+      - ~/.PostgreSQLData/postgres_strapi:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: senha
+      POSTGRES_DB: ecommerce_db
+      POSTGRES_USER: usuario
+      TZ: America/Sao_Paulo
