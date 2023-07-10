@@ -16,7 +16,7 @@ export const PaymentData = () => {
       <p className='font-semibold text-sm my-2'>
         Payment Options: We accept Visa, Mastercard, Bank Transfer and many other payment methods.
       </p>
-      <a href={linkPayment} target='_blank'>
+      <a href={linkPayment}>
        <PrimaryButton text='Pay now!' className='py-3 w-full text-bold text-base'/>
       </a>
       <p className='font-semibold text-sm my-2'>

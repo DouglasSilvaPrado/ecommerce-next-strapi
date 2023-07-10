@@ -30,6 +30,12 @@ module.exports = {
         ...updatedItems
       ],
       shipments,
+      back_urls: {
+        success: "http://localhost:3000/Payment/Success",
+        failure: "http://localhost:3000/",
+        pending: "http://localhost:3000/"
+      },
+      // auto_return: "approved",
     }
 
     try {

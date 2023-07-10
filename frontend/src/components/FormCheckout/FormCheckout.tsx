@@ -82,7 +82,7 @@ export const FormCheckout = () => {
       </div>
 
       <button 
-          className='p-4 rounded-lg text-sm w-full bg-darkGray text-white flex justify-between items-center' 
+          className='p-4 rounded-lg text-sm w-full bg-darkGray text-white flex justify-between items-center mb-5' 
           type='submit'
         >
           REVIEW AND PAY
