@@ -59,6 +59,11 @@ export const useFormCheckout = () => {
     
   }
 
+  const handleShippingValue = (value: number) => {
+    setShippingValue(value)
+    toast.success(`Updated delivery value!`)
+  } 
+
   useEffect(() => {
     if(phoneNumber.length < 11) return
     setValue('shippingAddress.phoneNumber', maskPhoneNumber(phoneNumber))
@@ -71,5 +76,5 @@ export const useFormCheckout = () => {
     trigger('shippingAddress.zipCode')
   }, [zipCode])
 
-  return { handleSubmit, handleFormSubmit, setShippingValue, register, errors }
+  return { handleSubmit, handleFormSubmit, handleShippingValue, register, errors }
 }

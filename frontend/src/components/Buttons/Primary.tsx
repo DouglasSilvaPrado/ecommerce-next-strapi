@@ -7,7 +7,7 @@ interface primaryProps {
 
 export const PrimaryButton = ({text, className}: primaryProps ) => {
   return (
-    <button className={`rounded-lg bg-blue text-gray text-sm font-medium ${className}`}>
+    <button className={`rounded-lg bg-blue text-gray text-sm font-medium hover:bg-darkGray ${className}`}>
       { text }
     </button>
   )
