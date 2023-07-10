@@ -51,7 +51,7 @@ export default function Home() {
         </div>
 
         <div className='grid grid-cols-2 gap-4 md:grid-cols-4 my-6'>
-          {shoes.slice(0, 4).map((shoe) => (
+          {shoes?.slice(0, 4).map((shoe) => (
             <ProductCard shoe={shoe} key={shoe.id} />
           ))}
         </div>
