@@ -5,6 +5,7 @@ import { ProductCard } from '@/components/Card/Product'
 import { useAppStore } from '@/store/store'
 import { Rubik, Open_Sans } from 'next/font/google'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useEffect } from 'react'
 
 const rubik = Rubik({ subsets: ['latin'] })
@@ -36,7 +37,9 @@ export default function Home() {
                 <h3 className='text-2xl md:text-7xl'>NIKE AIR MAX</h3>
                 <p className={`text-sm md:text-2xl ${open_sans.className}`}>Nike introducing the new air max for everyone's comfort</p>
               </div>
-              <PrimaryButton text='SHOP NOW' className="px-4 py-2 mt-2 md:py-4 md:px-8 md:mt-6" />
+              <Link href='/Listing'>
+                <PrimaryButton text='SHOP NOW' className="px-4 py-2 mt-2 md:py-4 md:px-8 md:mt-6" />
+              </Link>
             </div>
             <div className='absolute bottom-4 right-4 md:bottom-12 md:right-8'>
               <Image className="w-[64px] h-[64px] mb-2 md:w-[160px] md:h-[160px] md:mb-4" src="/Rectangle 2.png" alt="" width={64} height={64} />
@@ -47,10 +50,12 @@ export default function Home() {
 
         <div className='flex justify-between items-center my-6'>
           <p className='font-semibold text-2xl'>Don’t miss out <br/> new drops</p>
-          <PrimaryButton text='SHOP NEW DROPS' className="px-4 py-3 h-10" />
+          <Link href='/Listing'>
+            <PrimaryButton text='SHOP NEW DROPS' className="px-4 py-3 h-10" />
+          </Link>
         </div>
 
-        <div className='grid grid-cols-2 gap-4 md:grid-cols-4 my-6'>
+        <div className='grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 my-6'>
           {shoes.slice(0, 4).map((shoe) => (
             <ProductCard shoe={shoe} key={shoe.id} />
           ))}
