@@ -4,8 +4,8 @@ import { SecondaryButton } from '../Buttons/Secondary'
 
 export const SummaryAction = () => {
   return (
-    <Link href="/Checkout">
-      <SecondaryButton text="CHECKOUT" className='py-4 w-full mt-4'/>
+    <Link href="/Contact">
+      <SecondaryButton text="CONTACT" className='py-4 w-full mt-4'/>
     </Link>
     )
 }
