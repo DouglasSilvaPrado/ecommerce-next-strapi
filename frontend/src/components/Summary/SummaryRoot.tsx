@@ -5,7 +5,7 @@ type SummaryRootProps = {
 }
 export const SummaryRoot = ( {children}:SummaryRootProps ) => {
   return (
-    <div className='bg-faWhite rounded-2xl p-4 lg:bg-transparent'>
+    <div className='bg-faWhite rounded-2xl p-4'>
       { children }
     </div>
   )
