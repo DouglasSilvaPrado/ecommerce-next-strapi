@@ -13,6 +13,7 @@ export const ProductGalleryCarrousel = ({ images } : ProductGalleryCarrouselProp
       showFullscreenButton={false}
       showPlayButton={false}
       showNav={false}
+      showBullets
       autoPlay={true}
     />
   )
