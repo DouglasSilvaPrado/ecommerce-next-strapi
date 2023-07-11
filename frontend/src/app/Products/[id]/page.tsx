@@ -62,6 +62,7 @@ export default function Page({ params: { id } }: { params: { id: number } }) {
                 {index !== shoe.attributes.categories.data.length - 1 && " / "}
               </span>
             ))}
+            <p className='mt-2'>{shoe?.attributes.description}</p>
             </div>
           </div>
         </div>

@@ -28,7 +28,7 @@ export const useProduct = ( id: number ) => {
 
   const createGalleryItem = useCallback(
     (image: ImageType) => {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}${image.attributes.url}`;
+      const url = `${image.attributes.url}`;
       return {
         original: url,
         thumbnail: url,
@@ -72,7 +72,7 @@ export const useProduct = ( id: number ) => {
           tag: shoe.attributes.tag,
           categories: shoe.attributes.categories,
           sku: shoe.attributes.sku,
-          image: shoe.attributes.image.data.attributes.url,
+          image: shoe.attributes.image,
           color: selectedColor!,
           size:  sizeSelection!,
         }

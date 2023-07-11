@@ -4,7 +4,7 @@ const nextConfig = {
     appDir: true,
   },
   images: {
-    domains: ['localhost', 'quiet-cloud-5669.fly.dev'],
+    domains: ['localhost', 'quiet-cloud-5669.fly.dev', 'i.ibb.co'],
   },
 }
 
