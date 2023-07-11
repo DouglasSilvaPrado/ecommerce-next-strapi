@@ -16,9 +16,7 @@ export interface Shoe {
     categories: {
       data: CategoryType[]
     },
-    image:{
-      data: ImageType
-    },
+    image: string,
     gallery: {
       data: ImageType[]
     },

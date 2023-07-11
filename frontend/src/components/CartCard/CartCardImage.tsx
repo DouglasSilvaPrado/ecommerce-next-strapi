@@ -11,7 +11,7 @@ export const CartCardImage = ({image, className}: CartCardImageProps) => {
     <div className={`w-6/12 lg:w-3/12 ${className}`}>
       <Image 
         className='rounded-3xl' 
-        src={`${process.env.NEXT_PUBLIC_API_URL}${image}`} 
+        src={`${image}`} 
         alt="" 
         width={1000} 
         height={1000} 

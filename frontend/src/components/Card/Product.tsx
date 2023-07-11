@@ -16,8 +16,8 @@ export const ProductCard = ({ shoe }: ProductCardProps) => {
         <div className='relative h-full'>
           <Image 
             className="object-cover" 
-            src={`${process.env.NEXT_PUBLIC_API_URL}${shoe.attributes.image.data.attributes.url}`}
-            alt={shoe.attributes.image.data.attributes.name}
+            src={`${shoe.attributes.image}`}
+            alt={shoe.attributes.name}
             fill
           />
           <BadgeCard text={shoe.attributes.tag} color="faWhite" bg="blue"/>
