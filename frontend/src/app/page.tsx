@@ -6,21 +6,30 @@ import { useAppStore } from '@/store/store'
 import { Rubik, Open_Sans } from 'next/font/google'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
+import { useSession } from 'next-auth/react'
+
 
 const rubik = Rubik({ subsets: ['latin'] })
 const open_sans = Open_Sans({ subsets: ['latin'] })
 
 
 export default function Home() {
-
+  const { status } = useSession()
+  const { push } = useRouter()
   const { fetchShoes, shoes } = useAppStore()
 
   useEffect(() => {
     fetchShoes()
-  },[])
+  }, [])
 
-  
+  useEffect(() => {
+    if (status === 'unauthenticated') {
+      push('/Signin')
+    }
+  }, [])
+
 
   return (
     <div className={`${rubik.className} bg-gray `}>
@@ -28,7 +37,7 @@ export default function Home() {
         <div>
           <h1 className='font-bold text-6xl'>DO IT <span className='text-blue'>RIGHT</span></h1>
           <div className='relative min-w-[358px] h-[382px] md:h-[750px]'>
-            <Image src="/image 14.png" className='' alt=""  fill/>
+            <Image src="/image 14.png" className='' alt="" fill />
             <div className='absolute bg-darkGray p-2 rotate-[270deg] top-24 -left-[63px] rounded-b-lg md:p-6 md:top-[160px] md:-left-[83px]'>
               <p className='text-gray font-semibold text-xs md:text-base'>Nike product of the year</p>
             </div>
@@ -49,7 +58,7 @@ export default function Home() {
         </div>
 
         <div className='flex justify-between items-center my-6'>
-          <p className='font-semibold text-2xl'>Don’t miss out <br/> new drops</p>
+          <p className='font-semibold text-2xl'>Don’t miss out <br /> new drops</p>
           <Link href='/Listing'>
             <PrimaryButton text='SHOP NEW DROPS' className="px-4 py-3 h-10" />
           </Link>
