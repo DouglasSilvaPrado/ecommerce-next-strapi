@@ -21,9 +21,12 @@ export default function RootLayout({
     <html lang="pt-br">
       <body className={`${openSans.className} bg-gray `}>
         <Provider>
+
           <Navbar />
           <Toast />
-          <main className="mt-24 md:mt-36 px-4 md:px-16">{children}</main>
+          <main className="mt-24 md:mt-36 px-4 md:px-16">
+            {children}
+          </main>
         </Provider>
       </body>
     </html>
