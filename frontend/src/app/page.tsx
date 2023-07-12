@@ -6,9 +6,8 @@ import { useAppStore } from '@/store/store'
 import { Rubik, Open_Sans } from 'next/font/google'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
-import { useSession } from 'next-auth/react'
+import { usePrivateRouter } from '@/hooks/usePrivateRouter'
 
 
 const rubik = Rubik({ subsets: ['latin'] })
@@ -16,18 +15,11 @@ const open_sans = Open_Sans({ subsets: ['latin'] })
 
 
 export default function Home() {
-  const { status } = useSession()
-  const { push } = useRouter()
+  usePrivateRouter()
   const { fetchShoes, shoes } = useAppStore()
 
   useEffect(() => {
     fetchShoes()
-  }, [])
-
-  useEffect(() => {
-    if (status === 'unauthenticated') {
-      push('/Signin')
-    }
   }, [])
 
 
