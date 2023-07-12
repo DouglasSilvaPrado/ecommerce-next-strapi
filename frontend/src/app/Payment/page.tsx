@@ -5,7 +5,7 @@ import React from 'react'
 
 export default function Page() {
   return (
-    <div className='flex flex-col sm:flex-row gap-4'>
+    <div className='flex flex-col sm:flex-row sm:gap-4'>
 
       <div className='order-last sm:order-first sm:w-6/12'>
         <PaymentData />

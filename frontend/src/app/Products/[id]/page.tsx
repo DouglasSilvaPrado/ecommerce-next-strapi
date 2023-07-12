@@ -22,18 +22,18 @@ export default function Page({ params: { id } }: { params: { id: number } }) {
 
   return (
     <div className={`${rubik.className}`}>
-      <div className='md:flex'>
-        <div className='md:w-8/12 mr-4'>
-          <div className='md:hidden'>
+      <div className='lg:flex'>
+        <div className='lg:w-8/12 mr-4'>
+          <div className='sm:hidden'>
             <ProductGalleryCarrousel images={galleryImages} />
           </div>
-          <div className='hidden md:block'>
+          <div className='hidden sm:block'>
             <ProductGallery images={galleryImages} />
           </div>
         </div>
 
-        <div className='md:w-4/12'>
-          <div className='my-6 md:mt-0'>
+        <div className='lg:w-4/12'>
+          <div className='my-6 lg:mt-0'>
             <h3 className='font-semibold text-xl my-2'>{shoe?.attributes.name}</h3>
             <p className='font-semibold text-2xl text-blue'>${shoe?.attributes.price}</p>
           </div>
@@ -51,7 +51,7 @@ export default function Page({ params: { id } }: { params: { id: number } }) {
           </div>
           <div className='my-6 flex j'>
             <SecondaryButton text='ADD TO CART' className='py-4 mr-2 w-full' onClick={handleAddToCart}/>
-            <SecondaryButton text={<MdOutlineFavoriteBorder />} className={`px-4 ${isFavorite(shoe) ? 'bg-yellow' : 'bg-darkGray'}`} onClick={handleAddToFavorite}/>
+            <SecondaryButton text={<MdOutlineFavoriteBorder />} className={`px-4 ${isFavorite(shoe) ? 'bg-yellow' : 'bg-darkGray'}`} onClick={() => handleAddToFavorite}/>
           </div>
           <div className='my-6'>
             <p className='font-semibold mb-2'>ABOUT THE PRODUCT</p>

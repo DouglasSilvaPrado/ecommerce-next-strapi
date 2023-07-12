@@ -37,9 +37,9 @@ export const OrderDetails = () => {
               <CartCard.Root>
               <CartCard.Image 
                 image={product.attributes.image} 
-                className='sm:hidden sm:w-1/12 md:block md:w-4/12'
+                className='md:w-4/12'
               />
-                <CartCard.Content className='sm:w-11/12 md:w-8/12'>
+                <CartCard.Content className='md:w-8/12'>
                   <CartCard.PrimaryInfo 
                     productName={product.attributes.name}
                     color={product.attributes.color}
