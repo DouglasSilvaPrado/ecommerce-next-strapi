@@ -21,15 +21,12 @@ export const options: NextAuthOptions = {
           body: JSON.stringify(credentials),
           headers: { "Content-Type": "application/json" }
         })
-        console.log("🚀 ~ file: options.ts:21 ~ authorize ~ res:", res)
 
         const user = await res.json()
 
-        // If no error and we have user data, return it
         if (res.ok && user) {
           return user.user
         }
-        // Return null if user data could not be retrieved
         return null
       }
     })
