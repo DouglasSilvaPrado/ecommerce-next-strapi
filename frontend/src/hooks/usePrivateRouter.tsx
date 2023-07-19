@@ -10,6 +10,9 @@ export const usePrivateRouter = () => {
     if (status === 'unauthenticated') {
       push('/Signin')
     }
+    if (status === 'authenticated') {
+      push('/')
+    }
   }, [status])
 
   return {}
