@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
 export const usePrivateRouter = () => {
-  const { status } = useSession()
+  const { status, data } = useSession()
   const { push } = useRouter()
 
   useEffect(() => {
@@ -15,5 +15,5 @@ export const usePrivateRouter = () => {
     }
   }, [status])
 
-  return {}
+  return { status, data }
 }
