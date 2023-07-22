@@ -20,7 +20,7 @@ export const Navbar = () => {
       { label: 'men 2', path: '/men2' }
     ]
   };
-  
+
   const items2 = {
     label: 'Women',
     values: [
@@ -34,10 +34,10 @@ export const Navbar = () => {
   const { totalItems } = useAppStore()
 
   return (
-    <nav 
+    <nav
       className={`fixed z-50 h-14 top-0 left-0 right-0 m-4 ${toggleMenu ? 'rounded-t-xl' : 'rounded-xl'} md:rounded-xl md:mx-16 md:h-24`}
-      style={{backgroundColor: 'rgba(250, 250, 250, 0.8)'}}
-      >
+      style={{ backgroundColor: 'rgba(250, 250, 250, 0.8)' }}
+    >
       <div className='h-full'>
         <div className='flex items-center h-full justify-between mx-4'>
           <div className='hidden md:inline-block md:w-1/3'>
@@ -60,24 +60,26 @@ export const Navbar = () => {
             <button className="mr-2">
               <BsSearch className='w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6' />
             </button>
-            <button className="mx-2">
-              <FaUser className='w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6' />
-            </button>
+            <Link href="/Signin">
+              <button className="mx-2">
+                <FaUser className='w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6' />
+              </button>
+            </Link>
 
-          <Link href="/Cart">
-            <div className='w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 bg-yellow rounded-full flex items-center justify-center'>
-              <span className='font-semibold text-darkGray text-sm'> {totalItems} </span>
-            </div>
-          </Link>
+            <Link href="/Cart">
+              <div className='w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 bg-yellow rounded-full flex items-center justify-center'>
+                <span className='font-semibold text-darkGray text-sm'> {totalItems} </span>
+              </div>
+            </Link>
           </div>
         </div>
 
         {toggleMenu && (
-          <div 
+          <div
             className='absolute w-full rounded-b-xl py-2 px-4 left-0 md:hidden'
-            style={{backgroundColor: 'rgba(250, 250, 250, 0.8)'}}
+            style={{ backgroundColor: 'rgba(250, 250, 250, 0.8)' }}
           >
-            <ul className={`text-darkGray text-sm font-semibold divide-y-2 ${rubik.className}`} onClick={() => {setToggleMenu(false)}} >
+            <ul className={`text-darkGray text-sm font-semibold divide-y-2 ${rubik.className}`} onClick={() => { setToggleMenu(false) }} >
               <li className='cursor-pointer'><Link href="/Listing">New Drops 🔥</Link></li>
               <li><Dropdown items={items} /></li>
               <li><Dropdown items={items2} /></li>

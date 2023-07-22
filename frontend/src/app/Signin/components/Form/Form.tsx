@@ -4,6 +4,9 @@ import React, { useState } from 'react'
 import { AiOutlineArrowRight } from 'react-icons/ai'
 import { signIn } from 'next-auth/react'
 import { Inter, Rubik } from 'next/font/google'
+import { toast } from 'react-toastify'
+import { useRouter } from 'next/navigation'
+import { usePrivateRouter } from '@/hooks/usePrivateRouter'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -12,12 +15,22 @@ const rubik = Rubik({ subsets: ['latin'] })
 
 export const Form = () => {
 
+  usePrivateRouter()
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const { push } = useRouter()
+
 
   const handleLogin = async (event: any) => {
     event.preventDefault()
-    await signIn('credentials', { identifier: email, password, redirect: false })
+    const data = await signIn('credentials', { identifier: email, password, redirect: false })
+    if (data?.error) {
+      toast.error('invalid credentials')
+      return
+    }
+    toast.success('Successfully logged in!')
+    push('/')
   }
 
   return (

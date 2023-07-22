@@ -1,17 +1,11 @@
-'use client'
-
 import { Rubik } from 'next/font/google'
 import Link from 'next/link'
-import { signIn } from 'next-auth/react'
-import GoogleButton from 'react-google-button'
 import { Form } from './components/Form/Form'
-import { usePrivateRouter } from '@/hooks/usePrivateRouter'
+import { GoogleButtonRC } from './components/ProvidersButton/Google/GoogleButton'
 
 const rubik = Rubik({ subsets: ['latin'] })
 
-export default function Signin() {
-  usePrivateRouter()
-
+export default async function Signin() {
   return (
     <main>
       <div className='text-darkGray'>
@@ -21,7 +15,9 @@ export default function Signin() {
       <div className='mt-6'>
         <Form />
       </div>
-      <GoogleButton className='mt-4' onClick={() => signIn("google")} />
+      <div className='mt-6'>
+        <GoogleButtonRC />
+      </div>
     </main>
   )
 }
