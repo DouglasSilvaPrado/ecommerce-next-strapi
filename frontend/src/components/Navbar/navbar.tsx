@@ -9,6 +9,7 @@ import Dropdown from '../Dropdown/dropdown';
 import { useAppStore } from '@/store/store';
 import Link from 'next/link';
 import { Logo } from '../Logo/Logo';
+import { usePrivateRouter } from '@/hooks/usePrivateRouter';
 
 const rubik = Rubik({ subsets: ['latin'] });
 
@@ -32,6 +33,8 @@ export const Navbar = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
 
   const { totalItems } = useAppStore()
+
+  const { data } = usePrivateRouter()
 
   return (
     <nav
@@ -60,11 +63,19 @@ export const Navbar = () => {
             <button className="mr-2">
               <BsSearch className='w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6' />
             </button>
-            <Link href="/Signin">
-              <button className="mx-2">
-                <FaUser className='w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6' />
-              </button>
-            </Link>
+            {data?.user ?
+              <div className='w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 bg-blue rounded-full flex items-center justify-center mx-2'>
+                <span className='font-semibold text-white text-sm'>
+                  {data.user.email?.slice(0, 1).toUpperCase()}
+                </span>
+              </div>
+              :
+              <Link href="/Signin">
+                <button className="mx-2">
+                  <FaUser className='w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6' />
+                </button>
+              </Link>
+            }
 
             <Link href="/Cart">
               <div className='w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 bg-yellow rounded-full flex items-center justify-center'>
