@@ -10,7 +10,7 @@ export default async function Signin() {
     <main>
       <div className='text-darkGray'>
         <h1 className={`${rubik.className} font-semibold text-2xl`}>Login</h1>
-        <Link href='/Register' className='font-semibold underline cursor-pointer'>Forgot your password?</Link>
+        <Link href='/ResetPassword' className='font-semibold underline cursor-pointer'>Forgot your password?</Link>
       </div>
       <div className='mt-6'>
         <Form />

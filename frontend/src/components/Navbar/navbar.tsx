@@ -9,7 +9,7 @@ import Dropdown from '../Dropdown/dropdown';
 import { useAppStore } from '@/store/store';
 import Link from 'next/link';
 import { Logo } from '../Logo/Logo';
-import { usePrivateRouter } from '@/hooks/usePrivateRouter';
+import { useSession } from 'next-auth/react';
 
 const rubik = Rubik({ subsets: ['latin'] });
 
@@ -34,7 +34,7 @@ export const Navbar = () => {
 
   const { totalItems } = useAppStore()
 
-  const { data } = usePrivateRouter()
+  const { data } = useSession()
 
   return (
     <nav
